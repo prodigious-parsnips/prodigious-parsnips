@@ -1,0 +1,32 @@
+{
+  "knex": {
+    "connection": {
+      "database": "thesis_prod"
+    },
+    "debug": false,
+    "pool": {
+      "min": 2,
+      "max": 10
+    }
+  },
+
+  "passport": {
+    "Google": {
+      "clientID": "",
+      "clientSecret": "",
+      "callbackURL": ""
+    },
+
+   "Facebook": {
+      "clientID": "",
+      "clientSecret": "",
+      "callbackURL": ""
+    },
+
+   "Twitter": {
+      "consumerKey": "",
+      "consumerSecret": "",
+      "callbackURL": ""
+    }
+  }
+}
