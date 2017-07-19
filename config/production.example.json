@@ -12,21 +12,21 @@
 
   "passport": {
     "Google": {
-      "clientID": "",
-      "clientSecret": "",
-      "callbackURL": ""
+      "clientID": "FILL_ME_IN",
+      "clientSecret": "FILL_ME_IN",
+      "callbackURL": "http://FILL_ME_IN/auth/google/callback"
     },
 
-   "Facebook": {
-      "clientID": "",
-      "clientSecret": "",
-      "callbackURL": ""
+    "Facebook": {
+      "clientID": "FILL_ME_IN",
+      "clientSecret": "FILL_ME_IN",
+      "callbackURL": "http://FILL_ME_IN/auth/facebook/callback"
     },
 
-   "Twitter": {
-      "consumerKey": "",
-      "consumerSecret": "",
-      "callbackURL": ""
+    "Twitter": {
+      "consumerKey": "FILL_ME_IN",
+      "consumerSecret": "FILL_ME_IN",
+      "callbackURL": "http://FILL_ME_IN/auth/twitter/callback"
     }
   }
 }
