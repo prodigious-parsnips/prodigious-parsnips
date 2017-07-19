@@ -42,6 +42,14 @@ let createUserPreferences = (knex, id) => {
   });
 };
 
+let Users_Subreddits_Prefs = (knex, id) => {
+  return knex('Users_Subreddits_Prefs').insert({
+    id,
+    user_id: id,
+    user_preferrence_id: id,
+    subreddit_id: id
+  });
+};
 
 
 // let createNotifications = (knex, id) => {
@@ -66,6 +74,9 @@ exports.seed = (knex, Promise) => {
   // Deletes ALL existing entries
   return knex('Message').del()
   .then(()=> {
+   return knex('Users_Subreddits_Prefs').del()
+  })  
+  .then(()=> {
    return knex('Subreddits').del()
   })
   .then(()=> {
@@ -81,6 +92,7 @@ exports.seed = (knex, Promise) => {
       records.push(createUsers(knex, i));
       records.push(createUserPreferences(knex, i));
       records.push(createSubreddits(knex, i));
+      records.push(Users_Subreddits_Prefs(knex, i));
       // records.push(createMessage(knex, i));
       // records.push(createNotifications(knex, i));
     }
