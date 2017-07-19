@@ -20,14 +20,28 @@ let createSubreddits = (knex, id) => {
   });
 };
 
-let createNotifications = (knex, id) => {
-  return knex('Notifications').insert({
+let createMessage = (knex, id) => {
+  return knex('Message').insert({
     id,
-    notification_message_id: id,
-    user_id: id,
-    seen: 'false'
+    text: "wow that is SO funny, chicken",
+    title: id,
+    type: 'false',
+    post_id: id,
+    geotag: 'x1455 y2309',
+    upvotes: 33,
+    subreddit_id: id,
+    user_id: id
   });
 };
+
+// let createNotifications = (knex, id) => {
+//   return knex('Notifications').insert({
+//     id,
+//     notification_message_id: id,
+//     user_id: id,
+//     seen: 'false'
+//   });
+// };
 
 // let createRecord = (knex, id) => {
 //   return knex('users').insert({
@@ -40,19 +54,20 @@ let createNotifications = (knex, id) => {
 
 exports.seed = (knex, Promise) => {
   // Deletes ALL existing entries
-  return knex('Users').del()
+  return knex('Message').del()
   .then(()=> {
    return knex('Subreddits').del()
   })
-  // .then(()=> {
-  //  return knex('Notifications').del()
-  // })
+  .then(()=> {
+   return knex('Users').del()
+  })
   .then(() => {
     let records = [];
     for(let i = 1; i < 10; i++){
       console.log(i);
       records.push(createUsers(knex, i));
-      records.push(createSubreddits(knex, i));
+      // records.push(createSubreddits(knex, i));
+      // records.push(createMessage(knex, i));
       // records.push(createNotifications(knex, i));
     }
     return Promise.all(records);
