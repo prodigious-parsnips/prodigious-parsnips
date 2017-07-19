@@ -17,4 +17,8 @@ const User = db.Model.extend({
 
 });
 
+// User.where('username', 'Jasen28').fetch().then((data) => {
+//  console.log("caption also so we know what it is", data);
+// })
+
 module.exports = db.model('User', User);

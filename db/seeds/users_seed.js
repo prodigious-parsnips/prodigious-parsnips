@@ -1,5 +1,4 @@
 const models = require('../models');
-console.log('nick wants to know', models);
 
 exports.seed = function (knex, Promise) {
 
