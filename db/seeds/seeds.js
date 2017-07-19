@@ -52,14 +52,14 @@ let Users_Subreddits_Prefs = (knex, id) => {
 };
 
 
-// let createNotifications = (knex, id) => {
-//   return knex('Notifications').insert({
-//     id,
-//     notification_message_id: id,
-//     user_id: id,
-//     seen: 'false'
-//   });
-// };
+let createNotifications = (knex, id) => {
+  return knex('Notifications').insert({
+    id,
+    notification_message_id: id,
+    user_id: id,
+    seen: 'false'
+  });
+};
 
 // let createRecord = (knex, id) => {
 //   return knex('users').insert({
@@ -88,14 +88,27 @@ exports.seed = (knex, Promise) => {
   .then(() => {
     let records = [];
     for(let i = 1; i < 10; i++){
-      console.log(i);
       records.push(createUsers(knex, i));
+    }
+    for(let i = 1; i < 10; i++){
       records.push(createUserPreferences(knex, i));
+    }
+    for(let i = 1; i < 10; i++){
       records.push(createSubreddits(knex, i));
+    }
+    for(let i = 1; i < 10; i++){
       records.push(Users_Subreddits_Prefs(knex, i));
-      // records.push(createMessage(knex, i));
+    }
+    for(let i = 1; i < 10; i++){
+      records.push(createMessage(knex, i));
       // records.push(createNotifications(knex, i));
     }
+    for(let i = 1; i < 10; i++){
+      // records.push(createMessage(knex, i));
+      records.push(createNotifications(knex, i));
+    }
+
+
     return Promise.all(records);
   }).catch((err) => {
     console.log("err:", err);
