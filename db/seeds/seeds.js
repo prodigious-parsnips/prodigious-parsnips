@@ -34,6 +34,16 @@ let createMessage = (knex, id) => {
   });
 };
 
+let createUserPreferences = (knex, id) => {
+  return knex('User_Preferences').insert({
+    id,
+    upvote_threshold: 2,
+    location_threshold: 4
+  });
+};
+
+
+
 // let createNotifications = (knex, id) => {
 //   return knex('Notifications').insert({
 //     id,
@@ -59,6 +69,9 @@ exports.seed = (knex, Promise) => {
    return knex('Subreddits').del()
   })
   .then(()=> {
+   return knex('User_Preferences').del()
+  })
+  .then(()=> {
    return knex('Users').del()
   })
   .then(() => {
@@ -66,7 +79,8 @@ exports.seed = (knex, Promise) => {
     for(let i = 1; i < 10; i++){
       console.log(i);
       records.push(createUsers(knex, i));
-      // records.push(createSubreddits(knex, i));
+      records.push(createUserPreferences(knex, i));
+      records.push(createSubreddits(knex, i));
       // records.push(createMessage(knex, i));
       // records.push(createNotifications(knex, i));
     }
