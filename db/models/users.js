@@ -20,6 +20,55 @@ const User = db.Model.extend({
 
 
 
+const turnOnSnoozeByUserId = (userid) => { 
+  return new Promise((resolve, reject) => {
+    let user = new User({
+      id: userid,
+      snooze: true
+    })
+    .save()
+    .then((snooze)=>{
+      resolve(snooze);
+    })
+    .catch(err => {
+      reject(err);
+    });
+  });
+};
+
+// turnOnSnoozeByUserId(3)
+// .then(user=>{
+//   console.log('this is the user ', JSON.stringify(user));
+// })
+// .catch(err=>{
+//   console.log(err);
+// });
+
+const turnOffSnoozeByUserId = (userid) => { 
+  return new Promise((resolve, reject) => {
+    let user = new User({
+      id: userid,
+      snooze: false
+    })
+    .save()
+    .then((snooze)=>{
+      resolve(snooze);
+    })
+    .catch(err => {
+      reject(err);
+    });
+  });
+};
+
+// turnOffSnoozeByUserId(3)
+// .then(user=>{
+//   console.log('this is the user ', JSON.stringify(user));
+// })
+// .catch(err=>{
+//   console.log(err);
+// });
+
+
 
 const getPreferencesByUserId = userid => { 
   return new Promise((resolve, reject) => {

@@ -29,4 +29,4 @@ const updateUserPreferences = (userPreferenceId, upvoteThreshold, locationThresh
   });
 };
 
-updateUserPreferences(5, 1, 9);
+//updateUserPreferences(5, 1, 9);
