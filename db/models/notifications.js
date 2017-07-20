@@ -12,8 +12,6 @@ const Notification = db.Model.extend({
 
 module.exports = db.model('Notification', Notification);
 
-
-
 const getNotificationsByUserId = userid => { 
   return new Promise((resolve, reject) => {
     Notification.where('user_id', userid)
