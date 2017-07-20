@@ -1,5 +1,7 @@
 const db = require('../');
-// console.log("model is :", models.users.forge());
+const knex = require('knex')(require('../../knexfile'));
+
+// console.log("knex is :", knex);
 
 
 const User = db.Model.extend({
@@ -44,17 +46,22 @@ const User = db.Model.extend({
 //   })
 // }
 
-const getDataByUserId = userid => { 
+const getDataByUserId = (userid) => { 
   return new Promise((resolve, reject) => {
-    User.where('id', userid)
-    .fetch({withRelated: ['notifications']})
-    .then(data => {
-     resolve(data);
+    // knex('Users').innerJoin('Notifications', 'Users.id', 'Notifications.User_id');
+  // knex.select().from('Users').where()
+  knex.select().from('Users').innerJoin('Notifications', 'Users.id', 'Notifications.user_id')
+  .then(data => {
+    console.log('data', data);
+   var allNotificationsPerId = data.filter((item) => {
+       return item.id === userid
     })
-    .catch(err => {
-     reject(err);
-    })
+    resolve(allNotificationsPerId);
   })
+   .catch(err => {
+    reject(err);
+   })
+ })
 }
 
 // getDataByUserId(3)
@@ -65,7 +72,7 @@ const getDataByUserId = userid => {
 //   console.log(err)
 // })
 getDataByUserId(3)
-.then(notifications=>{
+.then(notifications =>{
   console.log('this is the notifications ', JSON.stringify(notifications));
 })
 .catch(err=>{
