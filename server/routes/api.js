@@ -15,7 +15,7 @@ router.route('/')
 
 router.route('/user')
   .get((req, res) => {
-    //this would return user id, as well as notifications and all the subreddits that a user is subscribed to
+    //I give you user user id, as well as notifications and all the subreddits that a user is subscribed to
     res.status(200).send('this is user!');
   })
   .post((req, res) => {
