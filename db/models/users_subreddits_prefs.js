@@ -6,7 +6,10 @@ const Users_Subreddits_Prefs = db.Model.extend({
     return this.hasMany('User_Preferences');
   },
   users: function(){
-    return this.hasOne('User');
+    return this.belongsTo('User');
+  },
+  subreddits: function(){
+    return this.belongsTo('Subreddit');
   }
 });
 

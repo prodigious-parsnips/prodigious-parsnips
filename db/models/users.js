@@ -7,20 +7,20 @@ const User = db.Model.extend({
   messages: function() {
     return this.hasMany('Message');
   },
-  users_subreddits_prefs: function() {
-    return this.hasMany('Users_Subreddits_Prefs', 'user_id');
-    //NOTE TO ROB -- The second argument in the function invocation above, 
-    //is how you specify the name of the foreign key. (other wise it will
-    //default to something dumb like uppercase 'User_id')
-  },
+  // users_subreddits_prefs: function() {
+  //   return this.hasMany('Users_Subreddits_Prefs', 'user_id');
+  //   //NOTE TO ROB -- The second argument in the function invocation above, 
+  //   //is how you specify the name of the foreign key. (other wise it will
+  //   //default to something dumb like uppercase 'User_id')
+  // },
   subreddits: function() {
-    return this.hasMany('Subreddit');
+    return this.belongsToMany('Subreddit').through('Users_Subreddits_Prefs', 'user_id', 'subreddit_id')
   },
   user_preferences: function() {
     return this.hasMany('User_Preferences');
   },
   notifications: function() {
-    return this.belongsToMany("Notification", 'Message');
+    return this.hasMany("Notification", 'user_id');
   }
 });
 
@@ -44,10 +44,11 @@ const User = db.Model.extend({
 //   })
 // }
 
+
 const getDataByUserId = userid => { 
   return new Promise((resolve, reject) => {
     User.where('id', userid)
-    .fetch({withRelated: ['notifications']})
+    .fetch({withRelated: ['subreddits', 'notifications']})
     .then(data => {
      resolve(data);
     })
@@ -57,20 +58,20 @@ const getDataByUserId = userid => {
   })
 }
 
-// getDataByUserId(3)
-// .then(user=>{
-//   console.log('this is the user ', JSON.stringify(user));
-// })
-// .catch(err=>{
-//   console.log(err)
-// })
 getDataByUserId(3)
-.then(notifications=>{
-  console.log('this is the notifications ', JSON.stringify(notifications));
+.then(user=>{
+  console.log('this is the user ', JSON.stringify(user));
 })
 .catch(err=>{
   console.log(err)
 })
+// getDataByUserId(3)
+// .then(notifications=>{
+//   console.log('this is the notifications ', JSON.stringify(notifications));
+// })
+// .catch(err=>{
+//   console.log(err)
+// })
 
 
 
