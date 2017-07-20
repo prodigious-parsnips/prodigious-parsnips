@@ -6,8 +6,25 @@ const Notification = db.Model.extend({
     return this.hasOne('User');
   },
   messages: function() {
-    return this.hasOne('Message');
+    return this.belongsTo('Message', 'notification_message_id');
   }
 });
 
 module.exports = db.model('Notification', Notification);
+
+const getNotificationsByUserId = userid => { 
+  return new Promise((resolve, reject) => {
+    Notification.where('user_id', userid)
+    .fetch({withRelated: 'messages'})
+    .then(data => {
+      resolve(data);
+    })
+    .catch(err => {
+      reject(err);
+    });
+  });
+};
+
+// getNotificationsByUserId(3)
+// .then(data=>{
+// });
