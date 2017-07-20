@@ -13,7 +13,7 @@ let createUsers = (knex, id) => {
 let createSubreddits = (knex, id) => {
   return knex('Subreddits').insert({
     id,
-    title: "Bobson Thunderblood",
+    title: faker.company.catchPhrase(),
     description: "does cool stuff" ,
     upvote_threshold: 5,
     location_threshold: 2
@@ -61,18 +61,15 @@ let createNotifications = (knex, id) => {
   });
 };
 
-// let createRecord = (knex, id) => {
-//   return knex('users').insert({
-//     id,
-//     username: faker.internet.userName(),
-//     snooze: 'false'
-//   })
-// }
+
 
 
 exports.seed = (knex, Promise) => {
   // Deletes ALL existing entries
-  return knex('Message').del()
+  return knex('Notifications').del()
+  .then(()=>{
+    return knex('Message').del()
+  })
   .then(()=> {
    return knex('Users_Subreddits_Prefs').del()
   })  

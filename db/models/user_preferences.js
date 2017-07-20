@@ -2,8 +2,8 @@ const db = require('../');
 
 const User_Preferences = db.Model.extend({
   tableName: 'User_Preferences',
-  users_subreddits_prefs: function() {
-    return this.hasOne('Users_Subreddits_Prefs');
+  users: function() {
+    return this.belongsToMany('User').through('Users_Subreddits_Prefs', 'user_id', 'subreddit_id');
   }
 });
 
