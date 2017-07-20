@@ -101,14 +101,10 @@ exports.seed = (knex, Promise) => {
     }
     for(let i = 1; i < 10; i++){
       records.push(createMessage(knex, i));
-      // records.push(createNotifications(knex, i));
     }
     for(let i = 1; i < 10; i++){
-      // records.push(createMessage(knex, i));
       records.push(createNotifications(knex, i));
     }
-
-
     return Promise.all(records);
   }).catch((err) => {
     console.log("err:", err);
