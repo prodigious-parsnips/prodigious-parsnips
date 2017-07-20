@@ -5,40 +5,77 @@ const User = db.Model.extend({
     return this.hasMany('Message');
   },
   subreddits: function() {
-    return this.belongsToMany('Subreddit').through('Users_Subreddits_Prefs', 'user_id', 'subreddit_id')
+    return this.belongsToMany('Subreddit').through('Users_Subreddits_Prefs', 'user_id', 'subreddit_id');
   },
   user_preferences: function() {
-    return this.hasMany('User_Preferences');
+    return this.belongsToMany('User_Preferences').through('Users_Subreddits_Prefs', 'user_id', 'user_preferrence_id ');
   },
   notifications: function() {
-    return this.hasMany("Notification", 'user_id');
+    return this.hasMany('Notification', 'user_id');
   }
 });
 
 
 
-const getDataByUserId = userid => { 
-  return new Promise((resolve, reject) => {
-    User.where('id', userid)
-    .fetch({withRelated: ['subreddits', 'notifications']})
-    .then(data => {
-     resolve(data);
-    })
-    .catch(err => {
-     reject(err);
-    })
-  })
-}
 
-// getDataByUserId(3)
-// .then(user=>{
-//   console.log('this is the user ', JSON.stringify(user));
-// })
-// .catch(err=>{
-//   console.log(err)
-// })
+// const turnOnSnoozeByUserId = (userid) => { 
+//   return new Promise((resolve, reject) => {
+//     let user = new User({
+//       id: userid,
+//       snooze: true
+//     })
+//     .save()
+//     .then((snooze)=>{
+//       resolve(snooze);
+//     })
+//     .catch(err => {
+//       reject(err);
+//     });
+//   });
+// };
+
+// const turnOffSnoozeByUserId = (userid) => { 
+//   return new Promise((resolve, reject) => {
+//     let user = new User({
+//       id: userid,
+//       snooze: false
+//     })
+//     .save()
+//     .then((snooze)=>{
+//       resolve(snooze);
+//     })
+//     .catch(err => {
+//       reject(err);
+//     });
+//   });
+// };
+
+// const getPreferencesByUserId = userid => { 
+//   return new Promise((resolve, reject) => {
+//     User.where('id', userid)
+//     .fetch({withRelated: 'user_preferences'})
+//     .then(data => {
+//       resolve(data);
+//     })
+//     .catch(err => {
+//       reject(err);
+//     });
+//   });
+// };
 
 
+// const getDataByUserId = userid => { 
+//   return new Promise((resolve, reject) => {
+//     User.where('id', userid)
+//     .fetch({withRelated: ['subreddits', 'notifications']})
+//     .then(data => {
+//       resolve(data);
+//     })
+//     .catch(err => {
+//       reject(err);
+//     });
+//   });
+// };
 
 
 

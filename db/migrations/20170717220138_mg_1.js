@@ -35,7 +35,7 @@ exports.up = function(knex, Promise) {
       table.string('text', 255).notNullable();
       table.string('title', 50).notNullable();
       table.string('type').notNullable();
-      table.integer('post_id').notNullable();
+      table.integer('post_id');
       table.string('geotag').notNullable();
       table.integer('upvotes').nullable();
       table.integer('subreddit_id').references('Subreddits.id');

@@ -5,10 +5,10 @@ const Users_Subreddits_Prefs = db.Model.extend({
   user_preferences: function() {
     return this.belongsTo('User_Preferences');
   },
-  users: function(){
+  users: function() {
     return this.belongsTo('User');
   },
-  subreddits: function(){
+  subreddits: function() {
     return this.belongsTo('Subreddit');
   }
 });
