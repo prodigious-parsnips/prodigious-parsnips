@@ -21,12 +21,12 @@ const updateUserPreferences = (userPreferenceId, upvoteThreshold, locationThresh
     })
     .save()
     .then((createdUserPref)=>{
-      resolve(createdUserPref)
+      resolve(createdUserPref);
     })
     .catch(err => {
-     reject(err);
-    })
-  })
-}
+      reject(err);
+    });
+  });
+};
 
-updateUserPreferences(5,  1, 9);
+updateUserPreferences(5, 1, 9);

@@ -14,7 +14,7 @@ let createSubreddits = (knex, id) => {
   return knex('Subreddits').insert({
     id,
     title: faker.company.catchPhrase(),
-    description: "does cool stuff" ,
+    description: 'does cool stuff',
     upvote_threshold: 5,
     location_threshold: 2
   });
@@ -23,7 +23,7 @@ let createSubreddits = (knex, id) => {
 let createMessage = (knex, id) => {
   return knex('Message').insert({
     id,
-    text: "wow that is SO funny, chicken",
+    text: 'wow that is SO funny, chicken',
     title: id,
     type: 'false',
     post_id: id,
@@ -62,49 +62,47 @@ let createNotifications = (knex, id) => {
 };
 
 
-
-
 exports.seed = (knex, Promise) => {
   // Deletes ALL existing entries
   return knex('Notifications').del()
   .then(()=>{
-    return knex('Message').del()
+    return knex('Message').del();
   })
   .then(()=> {
-   return knex('Users_Subreddits_Prefs').del()
+    return knex('Users_Subreddits_Prefs').del();
   })  
   .then(()=> {
-   return knex('Subreddits').del()
+    return knex('Subreddits').del();
   })
   .then(()=> {
-   return knex('User_Preferences').del()
+    return knex('User_Preferences').del();
   })
   .then(()=> {
-   return knex('Users').del()
+    return knex('Users').del();
   })
   .then(() => {
     let records = [];
-    for(let i = 1; i < 10; i++){
+    for (let i = 2; i < 11; i++) {
       records.push(createUsers(knex, i));
     }
-    for(let i = 1; i < 10; i++){
+    for (let i = 2; i < 11; i++) {
       records.push(createUserPreferences(knex, i));
     }
-    for(let i = 1; i < 10; i++){
+    for (let i = 2; i < 11; i++) {
       records.push(createSubreddits(knex, i));
     }
-    for(let i = 1; i < 10; i++){
+    for (let i = 2; i < 11; i++) {
       records.push(Users_Subreddits_Prefs(knex, i));
     }
-    for(let i = 1; i < 10; i++){
+    for (let i = 2; i < 11; i++) {
       records.push(createMessage(knex, i));
     }
-    for(let i = 1; i < 10; i++){
+    for (let i = 2; i < 11; i++) {
       records.push(createNotifications(knex, i));
     }
     return Promise.all(records);
   }).catch((err) => {
-    console.log("err:", err);
+    console.log('err:', err);
   });
 
 };

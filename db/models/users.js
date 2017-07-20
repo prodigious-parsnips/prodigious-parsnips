@@ -7,13 +7,13 @@ const User = db.Model.extend({
     return this.hasMany('Message');
   },
   subreddits: function() {
-    return this.belongsToMany('Subreddit').through('Users_Subreddits_Prefs', 'user_id', 'subreddit_id')
+    return this.belongsToMany('Subreddit').through('Users_Subreddits_Prefs', 'user_id', 'subreddit_id');
   },
   user_preferences: function() {
     return this.belongsToMany('User_Preferences').through('Users_Subreddits_Prefs', 'user_id', 'user_preferrence_id ');
   },
   notifications: function() {
-    return this.hasMany("Notification", 'user_id');
+    return this.hasMany('Notification', 'user_id');
   }
 });
 
@@ -26,13 +26,13 @@ const getPreferencesByUserId = userid => {
     User.where('id', userid)
     .fetch({withRelated: 'user_preferences'})
     .then(data => {
-     resolve(data);
+      resolve(data);
     })
     .catch(err => {
-     reject(err);
-    })
-  })
-}
+      reject(err);
+    });
+  });
+};
 
 
 // getPreferencesByUserId(3)
@@ -49,13 +49,13 @@ const getDataByUserId = userid => {
     User.where('id', userid)
     .fetch({withRelated: ['subreddits', 'notifications']})
     .then(data => {
-     resolve(data);
+      resolve(data);
     })
     .catch(err => {
-     reject(err);
-    })
-  })
-}
+      reject(err);
+    });
+  });
+};
 
 // getDataByUserId(3)
 // .then(user=>{
