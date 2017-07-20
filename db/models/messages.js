@@ -76,15 +76,15 @@ const createComment = (userid, title, text, geotag, postid) => {
 };
 
 
-createPost(4, 'best cat', 'this is the best cat! cute', 'x1455, 72309', 4)
-.then((data)=> {
-  console.log('this is data ', data);
-});
+// createPost(4, 'best cat', 'this is the best cat! cute', 'x1455, 72309', 4)
+// .then((data)=> {
+//   console.log('this is data ', data);
+// });
 
-createComment(4, 'this cat is the best?', 'this cat is trash!', 'x1455, 3424', 4)
-.then((data)=> {
-  console.log('this is data ', data);
-});
+// createComment(4, 'this cat is the best?', 'this cat is trash!', 'x1455, 3424', 4)
+// .then((data)=> {
+//   console.log('this is data ', data);
+// });
 
 
 // getMessagesBySubredditId(3)
