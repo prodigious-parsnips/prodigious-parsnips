@@ -62,7 +62,6 @@ module.exports.getDataByUserId = userid => {
 };
 
 module.exports.updateUserPreferences = (userPreferenceId, upvoteThreshold, locationThreshold) => { 
-  console.log(userPreferenceId);
   return new Promise((resolve, reject) => {
     let userPreference = new models.User_preferences({
       id: userPreferenceId,
