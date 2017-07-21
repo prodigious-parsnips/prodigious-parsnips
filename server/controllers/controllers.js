@@ -1,6 +1,6 @@
 const models = require('../../db/models');
 
-const turnOnSnoozeByUserId = (userid) => { 
+module.exports.turnOnSnoozeByUserId = (userid) => { 
   return new Promise((resolve, reject) => {
     let user = new models.Users({
       id: userid,
@@ -17,7 +17,7 @@ const turnOnSnoozeByUserId = (userid) => {
 };
 
 
-const turnOffSnoozeByUserId = (userid) => { 
+module.exports.turnOffSnoozeByUserId = (userid) => { 
   return new Promise((resolve, reject) => {
     let user = new models.Users({
       id: userid,
@@ -34,7 +34,7 @@ const turnOffSnoozeByUserId = (userid) => {
 };
 
 
-const getPreferencesByUserId = userid => { 
+module.exports.getPreferencesByUserId = userid => { 
   return new Promise((resolve, reject) => {
     models.Users.where('id', userid)
     .fetch({withRelated: 'user_preferences'})
@@ -48,7 +48,7 @@ const getPreferencesByUserId = userid => {
 };
 
 
-const getDataByUserId = userid => { 
+module.exports.getDataByUserId = userid => { 
   return new Promise((resolve, reject) => {
     models.Users.where('id', userid)
     .fetch({withRelated: ['subreddits', 'notifications']})
@@ -61,7 +61,8 @@ const getDataByUserId = userid => {
   });
 };
 
-const updateUserPreferences = (userPreferenceId, upvoteThreshold, locationThreshold) => { 
+module.exports.updateUserPreferences = (userPreferenceId, upvoteThreshold, locationThreshold) => { 
+  console.log(userPreferenceId);
   return new Promise((resolve, reject) => {
     let userPreference = new models.User_preferences({
       id: userPreferenceId,
@@ -79,7 +80,8 @@ const updateUserPreferences = (userPreferenceId, upvoteThreshold, locationThresh
 };
 
 
-const getMessagesBySubredditId = subid => { 
+
+module.exports.getMessagesBySubredditId = subid => { 
   return new Promise((resolve, reject) => {
     models.Messages.where('subreddit_id', subid)
     .fetch()
@@ -93,7 +95,7 @@ const getMessagesBySubredditId = subid => {
 };
 
 
-const createPost = (userid, title, text, geotag, subid) => { 
+module.exports.createPost = (userid, title, text, geotag, subid) => { 
   return new Promise((resolve, reject) => {
     let message = new models.Messages({
       title: title,
@@ -115,7 +117,7 @@ const createPost = (userid, title, text, geotag, subid) => {
   });
 };
 
-const createComment = (userid, title, text, geotag, postid) => { 
+module.exports.createComment = (userid, title, text, geotag, postid) => { 
   return new Promise((resolve, reject) => {
     let message = new models.Messages({
       title: '',
@@ -137,7 +139,7 @@ const createComment = (userid, title, text, geotag, postid) => {
   });
 };
 
-const getNotificationsByUserId = userid => { 
+module.exports.getNotificationsByUserId = userid => { 
   return new Promise((resolve, reject) => {
     models.Notifications.where('user_id', userid)
     .fetch({withRelated: 'messages'})
