@@ -38,10 +38,12 @@ router.route('/settings')
     .then((data)=>{
       res.status(200)
       .send(data);
+    })
+    .catch((err)=>{
+      console.log(err);
     });
   })
   .post((req, res) => {
-    console.log(req.body);
     controllers.updateUserPreferences(req.body.userPrefId, req.body.upvoteThreshold, req.body.locationThreshold)
     .then((data)=>{
       res.status(200)
@@ -50,19 +52,35 @@ router.route('/settings')
     .catch((err)=>{
       console.log(err);
     });
-    console.log('this is settings');
   });
 
 
 router.route('/messages')
   .get((req, res) => {
-    //this would get all the posts associated with a subreddit (Full posts, as well as comments)
-    res.status(200).send('this is messages!');
+    controllers.getMessagesBySubredditId(req.query.subredditId)
+    .then((data)=>{
+      res.status(200)
+      .send(data);
+    })
+    .catch((err)=>{
+      console.log(err);
+    });
   })
   .post((req, res) => {
-    //this would add a new comment or new post based on either a subreddit id or a post id
-    console.log('this is messages');
-    res.status(201).send({ data: 'Posted!' });
+    console.log(req.body);
+    if (req.body.subId) {
+      controllers.createPost(req.body.userId, req.body.title, req.body.text, req.body.geotag, req.body.subId)
+      .then((data)=>{
+        res.status(201)
+        .send(data);
+      });
+    } else {
+      controllers.createComment(req.body.userId, req.body.title, req.body.text, req.body.geotag, req.body.postId)
+      .then((data)=>{
+        res.status(201)
+        .send(data);
+      });
+    }
   });
 
 
