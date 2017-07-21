@@ -1,6 +1,9 @@
 'use strict';
 const express = require('express');
 const router = express.Router();
+let controllers = require('../controllers').Controllers;
+
+
 
 router.route('/')
   //this is where we would send API interaction instructions
@@ -15,52 +18,94 @@ router.route('/')
 
 router.route('/user')
   .get((req, res) => {
-    //I give you user user id, as well as notifications and all the subreddits that a user is subscribed to
-    res.status(200).send('this is user!');
+    controllers.getDataByUserId(req.query.id)
+    .then((data)=>{
+      res.status(200)
+      .send(data);
+    });
   })
   .post((req, res) => {
     //this would create a new user
     console.log('this is user');
-    res.status(201).send({ data: 'Posted!' });
+    res.status(201)
+    .send({ data: 'Posted!' });
   });
 
 
 router.route('/settings')
   .get((req, res) => {
-    //this would return all the settings data based on a user id
-    res.status(200).send('this is settings!');
+    controllers.getPreferencesByUserId(req.query.id)
+    .then((data)=>{
+      res.status(200)
+      .send(data);
+    })
+    .catch((err)=>{
+      console.log(err);
+    });
   })
   .post((req, res) => {
-    //this would update a users settings information 
-    console.log('this is settings');
-    res.status(201).send({ data: 'Posted!' });
+    controllers.updateUserPreferences(req.body.userPrefId, req.body.upvoteThreshold, req.body.locationThreshold)
+    .then((data)=>{
+      res.status(200)
+      .send(data);
+    })
+    .catch((err)=>{
+      console.log(err);
+    });
   });
 
 
 router.route('/messages')
   .get((req, res) => {
-    //this would get all the posts associated with a subreddit (Full posts, as well as comments)
-    res.status(200).send('this is messages!');
+    controllers.getMessagesBySubredditId(req.query.subredditId)
+    .then((data)=>{
+      res.status(200)
+      .send(data);
+    })
+    .catch((err)=>{
+      console.log(err);
+    });
   })
   .post((req, res) => {
-    //this would add a new comment or new post based on either a subreddit id or a post id
-    console.log('this is messages');
-    res.status(201).send({ data: 'Posted!' });
+    console.log(req.body);
+    if (req.body.subId) {
+      controllers.createPost(req.body.userId, req.body.title, req.body.text, req.body.geotag, req.body.subId)
+      .then((data)=>{
+        res.status(201)
+        .send(data);
+      });
+    } else {
+      controllers.createComment(req.body.userId, req.body.title, req.body.text, req.body.geotag, req.body.postId)
+      .then((data)=>{
+        res.status(201)
+        .send(data);
+      });
+    }
   });
 
 
-router.route('/notifications')
-  .get((req, res) => {
-    //this will load all the notifications based on a user id
-    res.status(200).send('this is notifications!');
-  });
+// router.route('/notifications')
+//   .get((req, res) => {
+//     //this will load all the notifications based on a user id
+//     res.status(200).send('this is notifications!');
+//   });
 
 
 router.route('/snooze')
   .post((req, res) => {
-    //this will turn on or off a users snooze preference
-    console.log('this is snooze');
-    res.status(201).send({ data: 'Posted!' });
+    if (req.body.toggle === 'on') {
+      controllers.turnOnSnoozeByUserId(req.body.userId)
+      .then((data)=>{
+        res.status(201)
+        .send(data);
+      });
+    } else {
+      controllers.turnOffSnoozeByUserId(req.body.userId)
+      .then((data)=>{
+        res.status(201)
+        .send(data);
+      });
+    }
   });
 
 

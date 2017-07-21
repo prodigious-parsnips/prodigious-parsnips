@@ -3,8 +3,10 @@ const express = require('express');
 const path = require('path');
 const middleware = require('./middleware');
 const routes = require('./routes');
+var bodyParser = require('body-parser');
 
 const app = express();
+app.use(bodyParser.json());
 
 app.use(middleware.morgan('dev'));
 app.use(middleware.cookieParser());
