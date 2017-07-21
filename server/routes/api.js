@@ -84,18 +84,28 @@ router.route('/messages')
   });
 
 
-router.route('/notifications')
-  .get((req, res) => {
-    //this will load all the notifications based on a user id
-    res.status(200).send('this is notifications!');
-  });
+// router.route('/notifications')
+//   .get((req, res) => {
+//     //this will load all the notifications based on a user id
+//     res.status(200).send('this is notifications!');
+//   });
 
 
 router.route('/snooze')
   .post((req, res) => {
-    //this will turn on or off a users snooze preference
-    console.log('this is snooze');
-    res.status(201).send({ data: 'Posted!' });
+    if (req.body.toggle === 'on') {
+      controllers.turnOnSnoozeByUserId(req.body.userId)
+      .then((data)=>{
+        res.status(201)
+        .send(data);
+      });
+    } else {
+      controllers.turnOffSnoozeByUserId(req.body.userId)
+      .then((data)=>{
+        res.status(201)
+        .send(data);
+      });
+    }
   });
 
 
