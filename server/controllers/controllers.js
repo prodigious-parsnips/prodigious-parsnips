@@ -83,8 +83,9 @@ module.exports.updateUserPreferences = (userPreferenceId, upvoteThreshold, locat
 module.exports.getMessagesBySubredditId = subid => { 
   return new Promise((resolve, reject) => {
     models.Messages.where('subreddit_id', subid)
-    .fetch()
+    .fetchAll()
     .then(data => {
+      console.log('data from db call', data);
       resolve(data);
     })
     .catch(err => {
