@@ -27,3 +27,14 @@ exports.rollback = (done) => {
       done();
     });
 };
+
+exports.seed = (done) => {
+  knex.seed.run()
+  .then(function() {
+    done();
+  })
+  .catch(function(err){
+    console.log('err in seed check lib/utils');
+  });
+};
+
