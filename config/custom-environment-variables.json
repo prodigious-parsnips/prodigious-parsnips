@@ -3,19 +3,21 @@
     "Google": {
       "clientID": "",
       "clientSecret": "",
-      "callbackURL": ""
+      "callbackURL": "http://localhost:3000"
     },
 
    "Facebook": {
       "clientID": "",
       "clientSecret": "",
-      "callbackURL": ""
+      "callbackURL": "http://localhost:3000"
     },
 
    "Twitter": {
       "consumerKey": "",
       "consumerSecret": "",
-      "callbackURL": ""
+      "callbackURL": "http://localhost:3000"
     }
   }
 }
+
+

@@ -33,6 +33,9 @@ passport.use('local-signup', new LocalStrategy({
   passReqToCallback: true
 },
   (req, email, password, done) => {
+    console.log('this is the req', req);
+    console.log('this is the req', email);
+    console.log('this is the req', password);
     // check to see if there is any account with this email address
     return models.Profile.where({ email }).fetch()
       .then(profile => {
