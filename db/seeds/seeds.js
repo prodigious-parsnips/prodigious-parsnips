@@ -3,11 +3,10 @@ var faker = require('faker');
 
 
 let createUsers = (knex, id) => {
-  return knex('Users').insert({
-    id,
+  new models.Users({
     username: faker.internet.userName(),
-    snooze: 'false'
-  });
+    snooze: faker.random.boolean()
+  }).save();
 };
 
 let createSubreddits = (knex, id) => {
@@ -63,6 +62,7 @@ let createNotifications = (knex, id) => {
 
 
 exports.seed = (knex, Promise) => {
+  console.log('seed is running!!');
   // Deletes ALL existing entries
   return knex('Notifications').del()
   .then(()=>{
@@ -82,24 +82,24 @@ exports.seed = (knex, Promise) => {
   })
   .then(() => {
     let records = [];
-    for (let i = 10; i < 20; i++) {
-      records.push(createUsers(knex, i));
+    for (let i = 0; i < 11; i++) {
+      createUsers(knex);
     }
-    for (let i = 10; i < 20; i++) {
-      records.push(createUserPreferences(knex, i));
-    }
-    for (let i = 10; i < 20; i++) {
-      records.push(createSubreddits(knex, i));
-    }
-    for (let i = 10; i < 20; i++) {
-      records.push(Users_Subreddits_Prefs(knex, i));
-    }
-    for (let i = 10; i < 20; i++) {
-      records.push(createMessage(knex, i));
-    }
-    for (let i = 10; i < 20; i++) {
-      records.push(createNotifications(knex, i));
-    }
+    // for (let i = 10; i < 20; i++) {
+    //   records.push(createUserPreferences(knex, i));
+    // }
+    // for (let i = 10; i < 20; i++) {
+    //   records.push(createSubreddits(knex, i));
+    // }
+    // for (let i = 10; i < 20; i++) {
+    //   records.push(Users_Subreddits_Prefs(knex, i));
+    // }
+    // for (let i = 10; i < 20; i++) {
+    //   records.push(createMessage(knex, i));
+    // }
+    // for (let i = 10; i < 20; i++) {
+    //   records.push(createNotifications(knex, i));
+    // }
     return Promise.all(records);
   }).catch((err) => {
     console.log('err:', err);
