@@ -2,24 +2,23 @@ const models = require('../models');
 var faker = require('faker');
 
 
-let createUsers = (knex, id) => {
+let createUsers = (id) => {
   new models.Users({
     username: faker.internet.userName(),
     snooze: faker.random.boolean()
   }).save();
 };
 
-let createSubreddits = (knex, id) => {
-  return knex('Subreddits').insert({
-    id,
-    title: faker.company.catchPhrase(),
-    description: 'does cool stuff',
-    upvote_threshold: 5,
-    location_threshold: 2
-  });
+let createSubreddits = (id) => {
+  new models.Subreddits({
+    title: faker.random.words(),
+    description: faker.company.catchPhrase(),
+    upvote_threshold: Math.floor(Math.random() * 10) + 1,
+    location_threshold: Math.floor(Math.random() * 10) + 1
+  }).save();
 };
 
-let createMessage = (knex, id) => {
+let createMessage = (id) => {
   return knex('Message').insert({
     id,
     text: 'wow that is SO funny, chicken',
@@ -33,21 +32,32 @@ let createMessage = (knex, id) => {
   });
 };
 
-let createUserPreferences = (knex, id) => {
-  return knex('User_Preferences').insert({
-    id,
-    upvote_threshold: 2,
-    location_threshold: 4
-  });
+let createUserPreferences = (id) => {
+  new models.User_preferences({
+    upvote_threshold: Math.floor(Math.random() * 10) + 1,
+    location_threshold: Math.floor(Math.random() * 10) + 1
+  }).save();
+
+  // return knex('User_Preferences').insert({
+  //   upvote_threshold: Math.floor(Math.random() * 10) + 1,
+  //   location_threshold: Math.floor(Math.random() * 10) + 1
+  // });
 };
 
-let Users_Subreddits_Prefs = (knex, id) => {
-  return knex('Users_Subreddits_Prefs').insert({
-    id,
+let Users_Subreddits_Prefs = (id) => {
+
+  new models.Users_subreddits_prefs({
     user_id: id,
     user_preferrence_id: id,
     subreddit_id: id
-  });
+  }).save();
+
+  // return knex('Users_Subreddits_Prefs').insert({
+  //   id,
+  //   user_id: id,
+  //   user_preferrence_id: id,
+  //   subreddit_id: id
+  // });
 };
 
 
@@ -62,7 +72,6 @@ let createNotifications = (knex, id) => {
 
 
 exports.seed = (knex, Promise) => {
-  console.log('seed is running!!');
   // Deletes ALL existing entries
   return knex('Notifications').del()
   .then(()=>{
@@ -83,17 +92,17 @@ exports.seed = (knex, Promise) => {
   .then(() => {
     let records = [];
     for (let i = 0; i < 11; i++) {
-      createUsers(knex);
+      createUsers();
     }
-    // for (let i = 10; i < 20; i++) {
-    //   records.push(createUserPreferences(knex, i));
-    // }
-    // for (let i = 10; i < 20; i++) {
-    //   records.push(createSubreddits(knex, i));
-    // }
-    // for (let i = 10; i < 20; i++) {
-    //   records.push(Users_Subreddits_Prefs(knex, i));
-    // }
+    for (let i = 0; i < 11; i++) {
+      createUserPreferences();
+    }
+    for (let i = 0; i < 11; i++) {
+      createSubreddits();
+    }
+    for (let i = 0; i < 11; i++) {
+      Users_Subreddits_Prefs(i);
+    }
     // for (let i = 10; i < 20; i++) {
     //   records.push(createMessage(knex, i));
     // }
