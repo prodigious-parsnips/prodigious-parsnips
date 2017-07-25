@@ -67,7 +67,6 @@ router.route('/messages')
     });
   })
   .post((req, res) => {
-    console.log(req.body);
     if (req.body.subId) {
       controllers.createPost(req.body.userId, req.body.title, req.body.text, req.body.geotag, req.body.subId)
       .then((data)=>{
