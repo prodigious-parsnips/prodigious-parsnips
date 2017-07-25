@@ -19,17 +19,17 @@ let createSubreddits = (id) => {
 };
 
 let createMessage = (id) => {
-  return knex('Message').insert({
-    id,
-    text: 'wow that is SO funny, chicken',
-    title: id,
-    type: 'false',
-    post_id: id,
+  new models.Messages({
+    text: faker.random.words(),
+    title: faker.random.words(),
+    type: faker.random.boolean(),
+    post_id: null,
     geotag: 'x1455 y2309',
-    upvotes: 33,
-    subreddit_id: id,
-    user_id: id
-  });
+    upvotes: Math.floor(Math.random() * 100) + 1,
+    subreddit_id: Math.floor(Math.random() * 10) + 1,
+    user_id: Math.floor(Math.random() * 10) + 1
+  }).save();
+
 };
 
 let createUserPreferences = (id) => {
@@ -38,36 +38,26 @@ let createUserPreferences = (id) => {
     location_threshold: Math.floor(Math.random() * 10) + 1
   }).save();
 
-  // return knex('User_Preferences').insert({
-  //   upvote_threshold: Math.floor(Math.random() * 10) + 1,
-  //   location_threshold: Math.floor(Math.random() * 10) + 1
-  // });
 };
 
 let Users_Subreddits_Prefs = (id) => {
 
   new models.Users_subreddits_prefs({
-    user_id: id,
-    user_preferrence_id: id,
-    subreddit_id: id
+    user_id: Math.floor(Math.random() * 10) + 1,
+    user_preferrence_id: Math.floor(Math.random() * 10) + 1,
+    subreddit_id: Math.floor(Math.random() * 10) + 1
   }).save();
 
-  // return knex('Users_Subreddits_Prefs').insert({
-  //   id,
-  //   user_id: id,
-  //   user_preferrence_id: id,
-  //   subreddit_id: id
-  // });
 };
 
 
 let createNotifications = (knex, id) => {
-  return knex('Notifications').insert({
-    id,
-    notification_message_id: id,
-    user_id: id,
-    seen: 'false'
-  });
+
+  new models.Notifications({
+    notification_message_id: Math.floor(Math.random() * 10) + 1,
+    user_id: Math.floor(Math.random() * 10) + 1,
+    seen: faker.random.boolean()
+  }).save();
 };
 
 
@@ -91,24 +81,24 @@ exports.seed = (knex, Promise) => {
   })
   .then(() => {
     let records = [];
-    for (let i = 0; i < 11; i++) {
+    for (let i = 1; i < 11; i++) {
       createUsers();
     }
-    for (let i = 0; i < 11; i++) {
+    for (let i = 1; i < 11; i++) {
       createUserPreferences();
     }
-    for (let i = 0; i < 11; i++) {
-      createSubreddits();
+    for (let i = 1; i < 11; i++) {
+      createSubreddits(i);
     }
-    for (let i = 0; i < 11; i++) {
+    for (let i = 1; i < 11; i++) {
       Users_Subreddits_Prefs(i);
     }
-    // for (let i = 10; i < 20; i++) {
-    //   records.push(createMessage(knex, i));
-    // }
-    // for (let i = 10; i < 20; i++) {
-    //   records.push(createNotifications(knex, i));
-    // }
+    for (let i = 1; i < 11; i++) {
+      createMessage(i);
+    }
+    for (let i = 10; i < 20; i++) {
+      createNotifications(i);
+    }
     return Promise.all(records);
   }).catch((err) => {
     console.log('err:', err);
