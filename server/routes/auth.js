@@ -10,7 +10,7 @@ router.route('/')
 
 router.route('/login')
   .get((req, res) => {
-    res.render('login.ejs', { message: req.flash('loginMessage') });
+    res.send({'fail': 'fail'});
   })
   .post(middleware.passport.authenticate('local-login', {
     successRedirect: '/profile',
@@ -20,7 +20,8 @@ router.route('/login')
 
 router.route('/signup')
   .get((req, res) => {
-    res.render('signup.ejs', { message: req.flash('signupMessage') });
+    res.send({'fail': 'fail'});
+    //render('signup.ejs', { message: req.flash('signupMessage') });
   })
   .post(middleware.passport.authenticate('local-signup', {
     successRedirect: '/profile',
@@ -30,9 +31,7 @@ router.route('/signup')
 
 router.route('/profile')
   .get(middleware.auth.verify, (req, res) => {
-    res.render('profile.ejs', {
-      user: req.user // get the user out of session and pass to template
-    });
+    res.send(req.user);
   });
 
 router.route('/logout')
