@@ -51,7 +51,7 @@ module.exports.getPreferencesByUserId = userid => {
 module.exports.getDataByUserId = userid => { 
   return new Promise((resolve, reject) => {
     models.Users.where('id', userid)
-    .fetch({withRelated: ['subreddits', 'notifications']})
+    .fetchAll({withRelated: ['subreddits', 'notifications']})
     .then(data => {
       resolve(data);
     })
@@ -85,7 +85,6 @@ module.exports.getMessagesBySubredditId = subid => {
     models.Messages.where('subreddit_id', subid)
     .fetchAll()
     .then(data => {
-      console.log('data from db call', data);
       resolve(data);
     })
     .catch(err => {
