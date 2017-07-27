@@ -99,6 +99,7 @@ router.route('/messages')
      }
    });
 
+
 router.route('/notifications')
   .get((req, res) => {
     //this will load all the notifications based on a user id
