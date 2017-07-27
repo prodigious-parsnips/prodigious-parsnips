@@ -11,7 +11,7 @@ let createUsers = (id) => {
 
 let createSubreddits = (id) => {
   new models.Subreddits({
-    title: faker.random.words(),
+    title: faker.commerce.productName(),
     description: faker.company.catchPhrase(),
     upvote_threshold: Math.floor(Math.random() * 10) + 1,
     location_threshold: Math.floor(Math.random() * 10) + 1

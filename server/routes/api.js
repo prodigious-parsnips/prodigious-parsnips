@@ -50,7 +50,7 @@ router.route('/settings')
     .catch((err)=>{
       console.log(err);
     });
-    res.status(200).send('this is settings!');
+    // res.status(200).send('this is settings!');
   });
 
 
