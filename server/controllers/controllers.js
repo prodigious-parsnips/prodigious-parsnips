@@ -85,7 +85,19 @@ module.exports.getMessagesBySubredditId = subid => {
     models.Messages.where('subreddit_id', subid)
     .fetchAll()
     .then(data => {
-      console.log('data from db call', data);
+      resolve(data);
+    })
+    .catch(err => {
+      reject(err);
+    });
+  });
+};
+
+module.exports.getMessagesByPostId = postid => { 
+  return new Promise((resolve, reject) => {
+    models.Messages.where('post_id', postid)
+    .fetchAll()
+    .then(data => {
       resolve(data);
     })
     .catch(err => {

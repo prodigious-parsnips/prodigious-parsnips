@@ -56,17 +56,27 @@ router.route('/settings')
 
 router.route('/messages')
   .get((req, res) => {
-    controllers.getMessagesBySubredditId(req.query.subredditId)
-    .then((data)=>{
-      res.status(200)
-      .send(data);
-    })
-    .catch((err)=>{
-      console.log(err);
-    });
+    if(req.query.postId){
+      controllers.getMessagesByPostId(req.query.postId)
+      .then((data)=>{
+        res.status(200)
+        .send(data);
+      })
+      .catch((err)=>{
+        console.log(err);
+      });        
+    } else {
+      controllers.getMessagesBySubredditId(req.query.subredditId)
+      .then((data)=>{
+        res.status(200)
+        .send(data);
+      })
+      .catch((err)=>{
+        console.log(err);
+      });      
+    }
   })
   .post((req, res) => {
-    console.log(req.body);
     if (req.body.subId) {
       controllers.createPost(req.body.userId, req.body.title, req.body.text, req.body.geotag, req.body.subId)
       .then((data)=>{
@@ -75,13 +85,19 @@ router.route('/messages')
       });
     } else {
       controllers.createComment(req.body.userId, req.body.title, req.body.text, req.body.geotag, req.body.postId)
-      .then((data)=>{
-        res.status(201)
-        .send(data);
+      .then((data) => {
+        console.log('is post_id-->?', data.attributes.post_id);
+        controllers.getMessagesByPostId(data.attributes.post_id)
+        .then((data) => {
+          res.status(201)
+          .send(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });         
       });
-    }
-  });
-
+     }
+   });
 
 router.route('/notifications')
   .get((req, res) => {
