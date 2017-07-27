@@ -59,7 +59,6 @@ router.route('/messages')
     if(req.query.postId){
       controllers.getMessagesByPostId(req.query.postId)
       .then((data)=>{
-        console.log("hey we got postId data now", data);
         res.status(200)
         .send(data);
       })
@@ -90,7 +89,6 @@ router.route('/messages')
         console.log('is post_id-->?', data.attributes.post_id);
         controllers.getMessagesByPostId(data.attributes.post_id)
         .then((data) => {
-          console.log("hey we got postId data now", data);
           res.status(201)
           .send(data);
         })
@@ -100,19 +98,6 @@ router.route('/messages')
       });
      }
    });
-
-// router.route('/comments')
-//     .get((req, res) => {
-//       controllers.getMessagesByPostId(11)
-//       .then((data)=>{
-//         res.status(200)
-//         console.log("data to comments route", data);
-//         .send(data);
-//       })
-//       .catch((err)=>{
-//         console.log(err);
-//       });
-//     })
 
 router.route('/notifications')
   .get((req, res) => {
