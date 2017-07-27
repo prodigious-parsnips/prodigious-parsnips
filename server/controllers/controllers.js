@@ -98,7 +98,6 @@ module.exports.getMessagesByPostId = postid => {
     models.Messages.where('post_id', postid)
     .fetchAll()
     .then(data => {
-      console.log("sending this back to api", data);
       resolve(data);
     })
     .catch(err => {
