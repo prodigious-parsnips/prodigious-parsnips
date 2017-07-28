@@ -43,8 +43,6 @@ let createUserPreferences = (id) => {
 
 let createAdminPreferences = (id) => {
   new models.Admin_preferences({
-    sub_title: faker.random.words(),
-    sub_description: faker.random.words(),
     upvote_threshold: Math.floor(Math.random() * 10) + 1,
     location_threshold: Math.floor(Math.random() * 10) + 1,
     notification_limit: Math.floor(Math.random() * 10) + 1,
@@ -84,13 +82,13 @@ exports.seed = (knex, Promise) => {
     return knex('Users_Subreddits_Prefs').del();
   })  
   .then(()=> {
-    return knex('Subreddits').del();
-  })
-  .then(()=> {
     return knex('Admin_Preferences').del();
   })
   .then(()=> {
     return knex('User_Preferences').del();
+  })
+  .then(()=> {
+    return knex('Subreddits').del();
   })
   .then(()=> {
     return knex('Users').del();
@@ -101,13 +99,13 @@ exports.seed = (knex, Promise) => {
       createUsers();
     }
     for (let i = 1; i < 11; i++) {
+      createSubreddits(i);
+    }
+    for (let i = 1; i < 11; i++) {
       createUserPreferences();
     }
     for (let i = 1; i < 11; i++) {
       createAdminPreferences();
-    }
-    for (let i = 1; i < 11; i++) {
-      createSubreddits(i);
     }
     for (let i = 1; i < 11; i++) {
       Users_Subreddits_Prefs(i);
