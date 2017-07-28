@@ -44,8 +44,6 @@ let createUserPreferences = (upvote_threshold, location_threshold, notification_
 
 let createAdminPreferences = (id) => {
   new models.Admin_preferences({
-    sub_title: faker.random.words(),
-    sub_description: faker.random.words(),
     upvote_threshold: Math.floor(Math.random() * 10) + 1,
     location_threshold: Math.floor(Math.random() * 10) + 1,
     notification_limit: Math.floor(Math.random() * 10) + 1,
@@ -93,7 +91,6 @@ exports.seed = (knex, Promise) => {
   .then(()=> {
     return knex('Users_Subreddits_Prefs').del();
   })  
-
   .then(()=> {
     return knex('Admin_Preferences').del();
   })
@@ -112,6 +109,7 @@ exports.seed = (knex, Promise) => {
 
   .then(() => {
     let records = [];
+
 
     createUsers();
     createSubreddits('Animal Lovers', 'a place for animal lovers to go', 5, 6);
@@ -246,7 +244,6 @@ exports.seed = (knex, Promise) => {
    Users_Subreddits_Prefs(3, 8, null, 3 );                   
    Users_Subreddits_Prefs(4, 7, null, 3 ); 
    Users_Subreddits_Prefs(5, 6, null, 3 );                   
-                   
 
   }).catch((err) => {
     console.log('err:', err);
