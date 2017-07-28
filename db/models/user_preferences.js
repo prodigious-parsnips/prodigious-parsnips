@@ -10,23 +10,3 @@ const User_Preferences = db.Model.extend({
 
 module.exports = db.model('User_Preferences', User_Preferences);
 
-
-
-// const updateUserPreferences = (userPreferenceId, upvoteThreshold, locationThreshold) => { 
-//   return new Promise((resolve, reject) => {
-//     let userPreference = new User_Preferences({
-//       id: userPreferenceId,
-//       upvote_threshold: upvoteThreshold,
-//       location_threshold: locationThreshold
-//     })
-//     .save()
-//     .then((createdUserPref)=>{
-//       resolve(createdUserPref);
-//     })
-//     .catch(err => {
-//       reject(err);
-//     });
-//   });
-// };
-
-//updateUserPreferences(5, 1, 9);

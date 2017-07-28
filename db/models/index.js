@@ -6,4 +6,5 @@ module.exports.Notifications = require('./notifications');
 module.exports.Subreddits = require('./subreddits');
 module.exports.Upvotes = require('./upvotes');
 module.exports.User_preferences = require('./user_preferences');
+module.exports.Admin_preferences = require('./admin_preferences');
 module.exports.Users_subreddits_prefs = require('./users_subreddits_prefs');
