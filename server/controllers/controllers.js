@@ -61,20 +61,18 @@ module.exports.getDataByUserId = userid => {
   });
 };
 
-module.exports.updateUserPreferences = (adminDesc, adminTitle, userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit) => { 
+module.exports.updateUserPreferences = (adminTitle, userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit) => { 
   
-  if( adminTitle && adminDesc ) {
+  if(adminTitle) {
     return new Promise((resolve, reject) => {
-      let userPreference = new models.Admin_preferences({
-        sub_title: adminTitle,
-        sub_description: adminDesc,
+      let adminPreference = new models.Admin_preferences({
         id: userPreferenceId,
         upvote_threshold: upvoteThreshold,
         location_threshold: locationThreshold,
         notification_limit: notificationLimit
       })
       .save()
-      .then((createdUserPref)=>{
+      .then((createdUserPref)=> {
         resolve(createdUserPref);
       })
       .catch(err => {
@@ -101,7 +99,9 @@ module.exports.updateUserPreferences = (adminDesc, adminTitle, userPreferenceId,
   }
 };
 
-// console.log(module.exports.updateUserPreferences(1, 2, 3, 4));
+// module.exports.updateUserPreferences(1, 30, 7, 4).then(data) => {
+//   console.log("updateUserPreferences", data);
+// };
 
 
 
