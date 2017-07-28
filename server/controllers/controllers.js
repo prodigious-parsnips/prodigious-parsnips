@@ -98,7 +98,11 @@ module.exports.updateUserPreferences = (adminTitle, userPreferenceId, upvoteThre
   }
 };
 
+<<<<<<< HEAD
 
+=======
+// console.log(module.exports.updateUserPreferences(1, 2, 3, 4));
+>>>>>>> fix order
 
 
 
