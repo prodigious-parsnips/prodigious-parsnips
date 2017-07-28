@@ -57,7 +57,6 @@ exports.up = function(knex, Promise) {
 
     }),
 
-
     knex.schema.createTableIfNotExists('Users_Subreddits_Prefs', function(table) {
       table.increments('id').unsigned().primary();
       table.integer('user_id').references('Users.id');
@@ -65,8 +64,6 @@ exports.up = function(knex, Promise) {
       table.integer('admin_preference_id').references('Admin_Preferences.id');
       table.integer('subreddit_id').references('Subreddits.id');
     }),
-
-
 
   ]);
 };

@@ -67,7 +67,6 @@ let Users_Subreddits_Prefs = (user_id, user_preference_id, admin_preference_id, 
     user_preference_id: user_preference_id,
     admin_preference_id: admin_preference_id,
     subreddit_id: subreddit_id
-
   }).save();
 
 };
@@ -109,7 +108,6 @@ exports.seed = (knex, Promise) => {
 
   .then(() => {
     let records = [];
-
 
     createUsers();
     createSubreddits('Animal Lovers', 'a place for animal lovers to go', 5, 6);
@@ -236,7 +234,6 @@ exports.seed = (knex, Promise) => {
    createNotifications();
    createNotifications();
    createNotifications();
-
 
 
    Users_Subreddits_Prefs(1, 10, null, 3 );                   
