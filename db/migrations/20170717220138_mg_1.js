@@ -63,8 +63,6 @@ exports.up = function(knex, Promise) {
       table.integer('location_threshold').notNullable();
       table.integer('notification_limit').notNullable();
     }),
-
-
   ]);
 };
 

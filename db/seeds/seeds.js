@@ -1,6 +1,7 @@
 const models = require('../models');
 var faker = require('faker');
 
+var collectUsers = [];
 
 let createUsers = (id) => {
   new models.Users({
@@ -51,19 +52,40 @@ let createAdminPreferences = (id) => {
 };
 
 let Users_Subreddits_Prefs = (id) => {
-
+  var val = Math.floor(Math.random() * 10) + 1;
+  var adminVal;
+  if(val === 1 ){
+   adminVal = 9;
+  } else if(val === 2){
+   adminVal = 8;
+  } else if(val === 3){
+   adminVal = 7;
+  } else if(val === 4){
+   adminVal = 6;
+  } else if(val === 6){
+   adminVal = 5;
+  } else if(val === 7){
+   adminVal = 4;
+  } else if(val === 8){
+   adminVal = 3;
+  } else if(val === 9){
+   adminVal = 2;
+  } else if(val === 10){
+   adminVal = 1;
+  } else {
+    adminVal = null;
+  }
   new models.Users_subreddits_prefs({
-    user_id: Math.floor(Math.random() * 10) + 1,
-    user_preference_id: Math.floor(Math.random() * 10) + 1,
-    admin_preference_id: Math.floor(Math.random() * 10) + 1,
-    subreddit_id: Math.floor(Math.random() * 10) + 1
+    user_id: id,
+    user_preference_id: id,
+    admin_preference_id: adminVal,
+    subreddit_id: val
   }).save();
 
 };
 
 
 let createNotifications = (knex, id) => {
-
   new models.Notifications({
     notification_message_id: Math.floor(Math.random() * 10) + 1,
     user_id: Math.floor(Math.random() * 10) + 1,
