@@ -62,10 +62,9 @@ module.exports.getDataByUserId = userid => {
 };
 
 module.exports.updateUserPreferences = (adminTitle, userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit) => { 
-  
   if(adminTitle) {
     return new Promise((resolve, reject) => {
-      let adminPreference = new models.Admin_preferences({
+      let userPreference = new models.Admin_preferences({
         id: userPreferenceId,
         upvote_threshold: upvoteThreshold,
         location_threshold: locationThreshold,
@@ -99,9 +98,7 @@ module.exports.updateUserPreferences = (adminTitle, userPreferenceId, upvoteThre
   }
 };
 
-// module.exports.updateUserPreferences(1, 30, 7, 4).then(data) => {
-//   console.log("updateUserPreferences", data);
-// };
+
 
 
 

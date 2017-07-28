@@ -55,6 +55,16 @@ exports.up = function(knex, Promise) {
       table.integer('upvote_threshold').notNullable();
       table.integer('location_threshold').notNullable();
       table.integer('notification_limit').notNullable();
+<<<<<<< HEAD
+=======
+    }),
+
+    knex.schema.createTableIfNotExists('Admin_Preferences', function(table) {
+      table.increments('id').unsigned().primary();
+      table.integer('upvote_threshold').notNullable();
+      table.integer('location_threshold').notNullable();
+      table.integer('notification_limit').notNullable();
+>>>>>>> implement admin preferences
     }),
 
     knex.schema.createTableIfNotExists('Admin_Preferences', function(table) {

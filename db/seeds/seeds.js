@@ -38,6 +38,20 @@ let createUserPreferences = (id) => {
     upvote_threshold: Math.floor(Math.random() * 10) + 1,
     location_threshold: Math.floor(Math.random() * 10) + 1,
     notification_limit: Math.floor(Math.random() * 10) + 1,
+<<<<<<< HEAD
+=======
+  }).save();
+
+};
+
+let createAdminPreferences = (id) => {
+  new models.Admin_preferences({
+    sub_title: faker.random.words(),
+    sub_description: faker.random.words(),
+    upvote_threshold: Math.floor(Math.random() * 10) + 1,
+    location_threshold: Math.floor(Math.random() * 10) + 1,
+    notification_limit: Math.floor(Math.random() * 10) + 1,
+>>>>>>> implement admin preferences
   }).save();
 
 };
@@ -76,10 +90,17 @@ let Users_Subreddits_Prefs = (id) => {
     adminVal = null;
   }
   new models.Users_subreddits_prefs({
+<<<<<<< HEAD
     user_id: id,
     user_preference_id: id,
     admin_preference_id: adminVal,
     subreddit_id: val
+=======
+    user_id: Math.floor(Math.random() * 10) + 1,
+    user_preference_id: Math.floor(Math.random() * 10) + 1,
+    admin_preference_id: Math.floor(Math.random() * 10) + 1,
+    subreddit_id: Math.floor(Math.random() * 10) + 1
+>>>>>>> implement admin preferences
   }).save();
 
 };
@@ -107,6 +128,9 @@ exports.seed = (knex, Promise) => {
     return knex('Admin_Preferences').del();
   })
   .then(()=> {
+    return knex('Admin_Preferences').del();
+  })
+  .then(()=> {
     return knex('User_Preferences').del();
   })
   .then(()=> {
@@ -128,6 +152,12 @@ exports.seed = (knex, Promise) => {
     }
     for (let i = 1; i < 11; i++) {
       createAdminPreferences();
+<<<<<<< HEAD
+=======
+    }
+    for (let i = 1; i < 11; i++) {
+      createSubreddits(i);
+>>>>>>> implement admin preferences
     }
     for (let i = 1; i < 11; i++) {
       Users_Subreddits_Prefs(i);
