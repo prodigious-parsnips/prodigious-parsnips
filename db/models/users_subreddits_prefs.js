@@ -5,6 +5,9 @@ const Users_Subreddits_Prefs = db.Model.extend({
   user_preferences: function() {
     return this.belongsTo('User_Preferences');
   },
+  admin_preferences: function() {
+    return this.belongsTo('Admin_Preferences');
+  },
   users: function() {
     return this.belongsTo('User');
   },

@@ -61,22 +61,47 @@ module.exports.getDataByUserId = userid => {
   });
 };
 
-module.exports.updateUserPreferences = (userPreferenceId, upvoteThreshold, locationThreshold) => { 
-  return new Promise((resolve, reject) => {
-    let userPreference = new models.User_preferences({
-      id: userPreferenceId,
-      upvote_threshold: upvoteThreshold,
-      location_threshold: locationThreshold
-    })
-    .save()
-    .then((createdUserPref)=>{
-      resolve(createdUserPref);
-    })
-    .catch(err => {
-      reject(err);
+module.exports.updateUserPreferences = (adminTitle, userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit) => { 
+  
+  if(adminTitle) {
+    return new Promise((resolve, reject) => {
+      let adminPreference = new models.Admin_preferences({
+        id: userPreferenceId,
+        upvote_threshold: upvoteThreshold,
+        location_threshold: locationThreshold,
+        notification_limit: notificationLimit
+      })
+      .save()
+      .then((createdUserPref)=> {
+        resolve(createdUserPref);
+      })
+      .catch(err => {
+        reject(err);
+      });
     });
-  });
+
+  } else {
+    return new Promise((resolve, reject) => {
+      let userPreference = new models.User_preferences({
+        id: userPreferenceId,
+        upvote_threshold: upvoteThreshold,
+        location_threshold: locationThreshold,
+        notification_limit: notificationLimit
+      })
+      .save()
+      .then((createdUserPref)=>{
+        resolve(createdUserPref);
+      })
+      .catch(err => {
+        reject(err);
+      });
+    });
+  }
 };
+
+// module.exports.updateUserPreferences(1, 30, 7, 4).then(data) => {
+//   console.log("updateUserPreferences", data);
+// };
 
 
 
