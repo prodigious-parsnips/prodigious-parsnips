@@ -101,7 +101,7 @@ module.exports.updateUserPreferences = (adminDesc, adminTitle, userPreferenceId,
   }
 };
 
-console.log(module.exports.updateUserPreferences(1, 2, 3, 4));
+// console.log(module.exports.updateUserPreferences(1, 2, 3, 4));
 
 
 
