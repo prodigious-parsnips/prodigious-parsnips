@@ -67,7 +67,7 @@ module.exports.updateUserPreferences = (adminTitle, adminDescription, userPrefer
   // console.log('INSIDE CONTROLLER!! ', adminTitle, adminDescription,  userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit);
   if(adminTitle) {
     return new Promise((resolve, reject) => {
-      let adminPreference = new models.Admin_preferences({
+      let userPreference = new models.Admin_preferences({
         id: userPreferenceId,
         upvote_threshold: upvoteThreshold,
         location_threshold: locationThreshold,

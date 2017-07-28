@@ -57,6 +57,7 @@ exports.up = function(knex, Promise) {
 
     }),
 
+
     knex.schema.createTableIfNotExists('Users_Subreddits_Prefs', function(table) {
       table.increments('id').unsigned().primary();
       table.integer('user_id').references('Users.id');
