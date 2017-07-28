@@ -66,6 +66,7 @@ exports.up = function(knex, Promise) {
       table.integer('notification_limit').notNullable();
 >>>>>>> implement admin preferences
     }),
+<<<<<<< HEAD
 
     knex.schema.createTableIfNotExists('Admin_Preferences', function(table) {
       table.increments('id').unsigned().primary();
@@ -73,6 +74,8 @@ exports.up = function(knex, Promise) {
       table.integer('location_threshold').notNullable();
       table.integer('notification_limit').notNullable();
     }),
+=======
+>>>>>>> new admin preference migration change and change to seed data
   ]);
 };
 
