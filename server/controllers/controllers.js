@@ -62,9 +62,10 @@ module.exports.getDataByUserId = userid => {
 };
 
 module.exports.updateUserPreferences = (adminTitle, userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit) => { 
+  
   if(adminTitle) {
     return new Promise((resolve, reject) => {
-      let userPreference = new models.Admin_preferences({
+      let adminPreference = new models.Admin_preferences({
         id: userPreferenceId,
         upvote_threshold: upvoteThreshold,
         location_threshold: locationThreshold,
@@ -97,13 +98,6 @@ module.exports.updateUserPreferences = (adminTitle, userPreferenceId, upvoteThre
     });
   }
 };
-
-<<<<<<< HEAD
-
-=======
-// console.log(module.exports.updateUserPreferences(1, 2, 3, 4));
->>>>>>> fix order
-
 
 
 module.exports.getMessagesBySubredditId = subid => { 
