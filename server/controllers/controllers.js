@@ -51,15 +51,17 @@ module.exports.getPreferencesByUserId = userid => {
 module.exports.getDataByUserId = userid => { 
   return new Promise((resolve, reject) => {
     models.Users.where('id', userid)
-    .fetch({withRelated: ['subreddits', 'notifications']})
+    .fetch({withRelated: ['subreddits', 'notifications', 'admin_preferences', 'user_preferences']})
     .then(data => {
-      resolve(data);
-    })
+        resolve(data);
+     })
     .catch(err => {
       reject(err);
     });
   });
 };
+    
+
 
 module.exports.updateUserPreferences = (adminTitle, userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit) => { 
   
@@ -183,5 +185,8 @@ module.exports.getNotificationsByUserId = userid => {
     });
   });
 };
+
+
+
 
 
