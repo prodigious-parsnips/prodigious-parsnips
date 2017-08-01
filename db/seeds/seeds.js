@@ -3,83 +3,60 @@ var faker = require('faker');
 
 var collectUsers = [];
 
-let createUsers = (id) => {
+let createUsers = () => {
   new models.Users({
     username: faker.internet.userName(),
-    snooze: faker.random.boolean()
+    snooze: faker.random.boolean(),
   }).save();
 };
 
-let createSubreddits = (id) => {
+let createSubreddits = (title, description, upvote_threshold, location_threshold) => {
   new models.Subreddits({
-    title: faker.commerce.productName(),
-    description: faker.company.catchPhrase(),
-    upvote_threshold: Math.floor(Math.random() * 10) + 1,
-    location_threshold: Math.floor(Math.random() * 10) + 1
+    title: faker.random.words(),
+    description: faker.random.words(),
+    upvote_threshold: upvote_threshold,
+    location_threshold: location_threshold
   }).save();
 };
 
-let createMessage = (id) => {
+let createMessage = (text, title, type, post_id, geotag, upvotes, subreddit_id, user_id ) => {
   new models.Messages({
     text: faker.random.words(),
     title: faker.random.words(),
-    type: faker.random.boolean(),
-    post_id: null,
-    geotag: 'x1455 y2309',
-    upvotes: Math.floor(Math.random() * 100) + 1,
-    subreddit_id: Math.floor(Math.random() * 10) + 1,
-    user_id: Math.floor(Math.random() * 10) + 1
+    type: type,
+    post_id: post_id,
+    geotag: geotag,
+    upvotes: upvotes,
+    subreddit_id: subreddit_id,
+    user_id: user_id
   }).save();
 
 };
 
-let createUserPreferences = (id) => {
+let createUserPreferences = (upvote_threshold, location_threshold, notification_limit) => {
   new models.User_preferences({
-    upvote_threshold: Math.floor(Math.random() * 10) + 1,
-    location_threshold: Math.floor(Math.random() * 10) + 1,
+    upvote_threshold: upvote_threshold,
+    location_threshold: Math.floor(Math.random() * 5) + 1,
     notification_limit: Math.floor(Math.random() * 10) + 1,
   }).save();
 
 };
 
-let createAdminPreferences = (id) => {
+let createAdminPreferences = (upvote_threshold, location_threshold, notification_limit) => {
   new models.Admin_preferences({
-    upvote_threshold: Math.floor(Math.random() * 10) + 1,
-    location_threshold: Math.floor(Math.random() * 10) + 1,
-    notification_limit: Math.floor(Math.random() * 10) + 1,
+    upvote_threshold: upvote_threshold,
+    location_threshold: location_threshold,
+    notification_limit: notification_limit,
   }).save();
 
 };
 
-let Users_Subreddits_Prefs = (id) => {
-  var val = Math.floor(Math.random() * 10) + 1;
-  var adminVal;
-  if(val === 1 ){
-   adminVal = 9;
-  } else if(val === 2){
-   adminVal = 8;
-  } else if(val === 3){
-   adminVal = 7;
-  } else if(val === 4){
-   adminVal = 6;
-  } else if(val === 6){
-   adminVal = 5;
-  } else if(val === 7){
-   adminVal = 4;
-  } else if(val === 8){
-   adminVal = 3;
-  } else if(val === 9){
-   adminVal = 2;
-  } else if(val === 10){
-   adminVal = 1;
-  } else {
-    adminVal = null;
-  }
+let Users_Subreddits_Prefs = (user_id, user_preference_id, admin_preference_id, subreddit_id) => {
   new models.Users_subreddits_prefs({
-    user_id: id,
-    user_preference_id: id,
-    admin_preference_id: adminVal,
-    subreddit_id: val
+    user_id: user_id,
+    user_preference_id: user_preference_id,
+    admin_preference_id: admin_preference_id,
+    subreddit_id: subreddit_id
   }).save();
 
 };
@@ -103,9 +80,7 @@ exports.seed = (knex, Promise) => {
   .then(()=> {
     return knex('Users_Subreddits_Prefs').del();
   })  
-  .then(()=> {
-    return knex('Admin_Preferences').del();
-  })
+
   .then(()=> {
     return knex('User_Preferences').del();
   })
@@ -115,30 +90,152 @@ exports.seed = (knex, Promise) => {
   .then(()=> {
     return knex('Users').del();
   })
+  .then(()=> {
+    return knex('Admin_Preferences').del();
+  })
+
   .then(() => {
     let records = [];
-    for (let i = 1; i < 11; i++) {
-      createUsers();
-    }
-    for (let i = 1; i < 11; i++) {
-      createSubreddits(i);
-    }
-    for (let i = 1; i < 11; i++) {
-      createUserPreferences();
-    }
-    for (let i = 1; i < 11; i++) {
-      createAdminPreferences();
-    }
-    for (let i = 1; i < 11; i++) {
-      Users_Subreddits_Prefs(i);
-    }
-    for (let i = 1; i < 11; i++) {
-      createMessage(i);
-    }
-    for (let i = 10; i < 20; i++) {
-      createNotifications(i);
-    }
-    return Promise.all(records);
+  
+    createUsers();
+    createSubreddits('Animal Lovers', 'a place for animal lovers to go', 5, 6);
+    createUserPreferences(10, 3, 2);
+    createAdminPreferences(7, 11, 4);
+    createMessage('not really no...', 'the best yet!', 'post', null, 'x445 y555', 3, 1, 1);
+    //person is admin
+    Users_Subreddits_Prefs(1, 1, 1, 1 );
+
+    createUsers();
+    createSubreddits('hockey jocks', 'mustangs', 5, 6);
+    createUserPreferences(10, 3, 2);
+    createAdminPreferences(7, 11, 4);
+    createMessage('let us get real right now', 'the best around',  'post', null, 'x445 y555', 8, 1, 2);
+    //userid, userprefid, adminprefid, subredditid
+    Users_Subreddits_Prefs(2, 2, null, 1 );
+
+
+    createUsers();
+    createSubreddits('Baseball Conversations', 'explorers', 5, 6);
+    createUserPreferences(10, 3, 2);
+    createAdminPreferences(7, 11, 4);
+    createMessage('crazy dancing', 'the best around','post', null, 'x445 y555', 9, 2, 3);
+    Users_Subreddits_Prefs(3, 3, null, 1 );
+
+    createUsers();
+    createSubreddits('little peeople', 'yeh', 5, 6);
+    createUserPreferences(10, 3, 2);
+    createAdminPreferences(7, 11, 4);
+    createMessage('what the hell?', 'the best around','post', null, 'x445 y555', 6, 2, 4);
+    Users_Subreddits_Prefs(4, 4, null, 1 );
+
+    createUsers();
+    createSubreddits('india pale ales', 'food on food on foo', 5, 6);
+    createUserPreferences(10, 3, 2);
+    createAdminPreferences(7, 11, 4);
+    createMessage('milfred?', 'talking with joe','post', null, 'x445 y555', 5, 3, 5);
+    Users_Subreddits_Prefs(5, 5, null, 1 );  
+
+
+
+
+
+    createUsers();
+    createSubreddits('movies', 'bagels in the am', 5, 6);
+    createUserPreferences(10, 3, 2);
+    createAdminPreferences(7, 11, 4);
+    createMessage('woah there doggie', 'unbelievable','post', null, 'x445 y555', 5, 4, 6);
+    //person is admin
+    Users_Subreddits_Prefs(6, 6, 2, 2 );  
+
+    createUsers();
+    createSubreddits('card games', 'eatin good in the ...', 5, 6);
+    createUserPreferences(10, 3, 2);
+    createAdminPreferences(7, 11, 4);
+    createMessage('janie has a gone', 'get it right','post', null, 'x445 y555', 5, 4, 7);
+    Users_Subreddits_Prefs(7, 7, null, 2 ); 
+
+    createUsers();
+    createSubreddits('bowcasters', 'pancakes are nice', 5, 6);
+    createUserPreferences(10, 3, 2);
+    createAdminPreferences(7, 11, 4);
+    createMessage('people people people', 'the best around','post', null, 'x445 y555', 5, 4, 8);
+    Users_Subreddits_Prefs(8, 8, null, 2 );
+
+    createUsers();
+    createSubreddits('mathletes', 'san francisco', 5, 6);
+    createUserPreferences(10, 3, 2);
+    createAdminPreferences(7, 11, 4);
+    createMessage('do not ask', 'the best around','post', null, 'x445 y555', 5, 4, 9);
+    Users_Subreddits_Prefs(9, 9, null, 2 ); 
+
+
+
+
+    createUsers();
+    createSubreddits('Lord of the Rings Lords', 'a place where animals do not belong', 5, 10);
+    createUserPreferences(10, 3, 2);
+    createAdminPreferences(7, 11, 4);
+    createMessage('woah there doggie', 'where is the salt?','post', null, 'x445 y555', 5, 2, 6);
+    Users_Subreddits_Prefs(10, 10, null, 3 ); 
+
+    createUsers();
+    createSubreddits('killa joe', 'meat is good', 5, 11);
+    createUserPreferences(10, 3, 2);
+    createAdminPreferences(7, 11, 4);
+    createMessage('by by babie', 'this is great billie','post', null, 'x445 y555', 5, 2, 7);
+    Users_Subreddits_Prefs(11, 11, null, 3 ); 
+
+    createUsers();
+    createSubreddits('builer bob the builder', 'build apps', 5, 12);
+    createUserPreferences(10, 3, 2);
+    createAdminPreferences(7, 11, 4);
+    createMessage('people talk', 'no joe no','post', null, 'x445 y555', 5, 3, 8);
+    //person is admin
+    Users_Subreddits_Prefs(12, 12, 3, 3 );
+
+    createUsers();
+    createSubreddits('the cookie squad', 'cooking in the kitchen', 5, 13);
+    createUserPreferences(10, 3, 2);
+    createAdminPreferences(7, 11, 4);
+    createMessage('yella', 'the best around','post', null, 'x445 y555', 5, 4, 9);
+    Users_Subreddits_Prefs(13, 13, null, 3 );                   
+
+    
+
+   createMessage('yella', 'the best around','comment', 1, 'x445 y555', 5, 1, 9);
+  createMessage('more', 'yeah no','comment', 1, 'x445 y555', 5, 1, 9);
+   createMessage('do it again!', 'oh yeah','comment', 1, 'x445 y555', 5, 1, 9);
+   createMessage('riiiiight', 'lets not','comment', 1, 'x445 y555', 5, 1, 9);
+  createMessage('you lie', 'lets do it','comment', 1, 'x445 y555', 5, 1, 9);
+
+   createMessage('it is not really', 'great post','comment', 2, 'x445 y555', 5, 1, 2);
+   createMessage('yella', 'the best around','comment', 2, 'x445 y555', 5, 1, 3);
+  createMessage('more', 'yeah no','comment', 2, 'x445 y555', 5, 1, 4);
+   createMessage('do it again!', 'oh yeah','comment', 2, 'x445 y555', 5, 1, 1);
+   createMessage('riiiiight', 'lets not','comment', 2, 'x445 y555', 5, 1, 1);
+  createMessage('you lie', 'lets do it','comment', 2, 'x445 y555', 5, 1, 1);
+   createMessage('it is not really', 'great post','comment', 1, 'x445 y555', 5, 1, 1);
+
+
+   createNotifications();
+   createNotifications();
+   createNotifications();
+   createNotifications();
+   createNotifications();
+   createNotifications();
+   createNotifications();
+   createNotifications();
+
+
+
+   Users_Subreddits_Prefs(1, 10, null, 3 );                   
+   Users_Subreddits_Prefs(2, 9, null, 3 );                   
+   Users_Subreddits_Prefs(3, 8, null, 3 );                   
+   Users_Subreddits_Prefs(4, 7, null, 3 ); 
+   Users_Subreddits_Prefs(5, 6, null, 3 );                   
+                   
+
+
   }).catch((err) => {
     console.log('err:', err);
   });
