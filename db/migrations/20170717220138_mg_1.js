@@ -64,7 +64,6 @@ exports.up = function(knex, Promise) {
       table.integer('admin_preference_id').references('Admin_Preferences.id');
       table.integer('subreddit_id').references('Subreddits.id');
     }),
-
   ]);
 };
 
