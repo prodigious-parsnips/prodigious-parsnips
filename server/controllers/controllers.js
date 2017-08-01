@@ -64,7 +64,7 @@ module.exports.getDataByUserId = userid => {
 
 
 module.exports.updateUserPreferences = (adminTitle, userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit) => { 
-  
+  // console.log('INSIDE CONTROLLER!! ', adminTitle, userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit);
   if(adminTitle) {
     return new Promise((resolve, reject) => {
       let adminPreference = new models.Admin_preferences({
@@ -92,6 +92,7 @@ module.exports.updateUserPreferences = (adminTitle, userPreferenceId, upvoteThre
       })
       .save()
       .then((createdUserPref)=>{
+        // console.log('AFTER SAVING TO DB!! ', JSON.stringify(createdUserPref));
         resolve(createdUserPref);
       })
       .catch(err => {

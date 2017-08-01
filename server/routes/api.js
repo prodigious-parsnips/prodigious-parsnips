@@ -42,7 +42,7 @@ router.route('/settings')
     });
   })
   .post((req, res) => {
-    controllers.updateUserPreferences(req.body.userPrefId, req.body.upvoteThreshold, req.body.locationThreshold)
+    controllers.updateUserPreferences(req.body.adminTitle, req.body.userPreferenceId, req.body.upvoteThreshold, req.body.locationThreshold, req.body.notificationLimit)
     .then((data)=>{
       res.status(200)
       .send(data);
