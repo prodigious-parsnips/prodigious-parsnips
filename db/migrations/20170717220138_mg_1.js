@@ -16,12 +16,19 @@ exports.up = function(knex, Promise) {
       table.integer('location_threshold').notNullable();
     }),
 
+    knex.schema.createTableIfNotExists('Admin_Preferences', function(table) {
+      table.increments('id').unsigned().primary();
+      table.integer('upvote_threshold').notNullable();
+      table.integer('location_threshold').notNullable();
+      table.integer('notification_limit').notNullable();
+
+    }),
+
     knex.schema.createTableIfNotExists('Upvotes', function(table) {
       table.increments('id').unsigned().primary();
       table.integer('message_id').references('Message.id');
       table.integer('user_id').references('Users.id');
     }),
-
 
     knex.schema.createTableIfNotExists('Notifications', function(table) {
       table.increments('id').unsigned().primary();
@@ -42,18 +49,22 @@ exports.up = function(knex, Promise) {
       table.integer('user_id').references('Users.id');
     }),
 
-    knex.schema.createTableIfNotExists('Users_Subreddits_Prefs', function(table) {
-      table.increments('id').unsigned().primary();
-      table.integer('user_id').references('Users.id');
-      table.integer('user_preferrence_id').references('User_Preferences.id');
-      table.integer('subreddit_id').references('Subreddits.id');
-    }),
-
     knex.schema.createTableIfNotExists('User_Preferences', function(table) {
       table.increments('id').unsigned().primary();
       table.integer('upvote_threshold').notNullable();
       table.integer('location_threshold').notNullable();
+      table.integer('notification_limit').notNullable();
+
     }),
+
+    knex.schema.createTableIfNotExists('Users_Subreddits_Prefs', function(table) {
+      table.increments('id').unsigned().primary();
+      table.integer('user_id').references('Users.id');
+      table.integer('user_preference_id').references('User_Preferences.id');
+      table.integer('admin_preference_id').references('Admin_Preferences.id');
+      table.integer('subreddit_id').references('Subreddits.id');
+    }),
+
 
 
   ]);
@@ -66,7 +77,8 @@ exports.down = function (knex, Promise) {
     knex.schema.dropTable('User_Preferences'),
     knex.schema.dropTable('Notifications'),
     knex.schema.dropTable('Message'),
-    knex.schema.dropTable('Subreddits'),
+    knex.schema.dropTable('Admin_Preferences'),
+    knex.schema.dropTable('Subreddits'),    
     knex.schema.dropTable('Users')
   ]);
 };

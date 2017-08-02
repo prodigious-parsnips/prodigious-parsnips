@@ -51,7 +51,61 @@ module.exports.getPreferencesByUserId = userid => {
 module.exports.getDataByUserId = userid => { 
   return new Promise((resolve, reject) => {
     models.Users.where('id', userid)
-    .fetch({withRelated: ['subreddits', 'notifications']})
+    .fetch({withRelated: ['subreddits', 'notifications', 'admin_preferences', 'user_preferences']})
+    .then(data => {
+        resolve(data);
+     })
+    .catch(err => {
+      reject(err);
+    });
+  });
+};
+    
+
+
+module.exports.updateUserPreferences = (adminTitle, userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit) => { 
+  
+  if(adminTitle) {
+    return new Promise((resolve, reject) => {
+      let adminPreference = new models.Admin_preferences({
+        id: userPreferenceId,
+        upvote_threshold: upvoteThreshold,
+        location_threshold: locationThreshold,
+        notification_limit: notificationLimit
+      })
+      .save()
+      .then((createdUserPref)=> {
+        resolve(createdUserPref);
+      })
+      .catch(err => {
+        reject(err);
+      });
+    });
+
+  } else {
+    return new Promise((resolve, reject) => {
+      let userPreference = new models.User_preferences({
+        id: userPreferenceId,
+        upvote_threshold: upvoteThreshold,
+        location_threshold: locationThreshold,
+        notification_limit: notificationLimit
+      })
+      .save()
+      .then((createdUserPref)=>{
+        resolve(createdUserPref);
+      })
+      .catch(err => {
+        reject(err);
+      });
+    });
+  }
+};
+
+
+module.exports.getMessagesBySubredditId = subid => { 
+  return new Promise((resolve, reject) => {
+    models.Messages.where('subreddit_id', subid)
+    .fetchAll()
     .then(data => {
       resolve(data);
     })
@@ -61,28 +115,11 @@ module.exports.getDataByUserId = userid => {
   });
 };
 
-module.exports.updateUserPreferences = (userPreferenceId, upvoteThreshold, locationThreshold) => { 
-  return new Promise((resolve, reject) => {
-    let userPreference = new models.User_preferences({
-      id: userPreferenceId,
-      upvote_threshold: upvoteThreshold,
-      location_threshold: locationThreshold
-    })
-    .save()
-    .then((createdUserPref)=>{
-      resolve(createdUserPref);
-    })
-    .catch(err => {
-      reject(err);
-    });
-  });
-};
-
-
-
-module.exports.getMessagesBySubredditId = subid => { 
+module.exports.getMessagesByPostId = postid => { 
   return new Promise((resolve, reject) => {
     models.Messages.where('subreddit_id', subid)
+    //the below was left over from a merge conflict, not sure which one is right!
+    // models.Messages.where('post_id', postid)
     .fetchAll()
     .then(data => {
       console.log('data from db call', data);
@@ -151,5 +188,8 @@ module.exports.getNotificationsByUserId = userid => {
     });
   });
 };
+
+
+
 
 
