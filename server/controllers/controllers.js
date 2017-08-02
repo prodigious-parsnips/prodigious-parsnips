@@ -1,6 +1,6 @@
 const models = require('../../db/models');
 
-module.exports.turnOnSnoozeByUserId = (userid) => { 
+module.exports.turnOnSnoozeByUserId = (userid) => {
   return new Promise((resolve, reject) => {
     let user = new models.Users({
       id: userid,
@@ -17,7 +17,7 @@ module.exports.turnOnSnoozeByUserId = (userid) => {
 };
 
 
-module.exports.turnOffSnoozeByUserId = (userid) => { 
+module.exports.turnOffSnoozeByUserId = (userid) => {
   return new Promise((resolve, reject) => {
     let user = new models.Users({
       id: userid,
@@ -34,7 +34,7 @@ module.exports.turnOffSnoozeByUserId = (userid) => {
 };
 
 
-module.exports.getPreferencesByUserId = userid => { 
+module.exports.getPreferencesByUserId = userid => {
   return new Promise((resolve, reject) => {
     models.Users.where('id', userid)
     .fetch({withRelated: 'user_preferences'})
@@ -48,7 +48,7 @@ module.exports.getPreferencesByUserId = userid => {
 };
 
 
-module.exports.getDataByUserId = userid => { 
+module.exports.getDataByUserId = userid => {
   return new Promise((resolve, reject) => {
     models.Users.where('id', userid)
     .fetch({withRelated: ['subreddits', 'notifications', 'admin_preferences', 'user_preferences', 'users_subreddits_prefs']})
@@ -60,10 +60,39 @@ module.exports.getDataByUserId = userid => {
     });
   });
 };
-    
 
+module.exports.createMap = (mapTitle, mapDescription, upvoteThreshold, distanceThreshold) => {
+  return new Promise((resolve, reject) => {
+    let subreddit = new models.Subreddits({
+      title: mapTitle,
+      description: mapDescription,
+      upvote_threshold: upvoteThreshold,
+      location_threshold: distanceThreshold,
+    })
+    .save()
+    .then((createdSub) => resolve(createdSub))
+    .catch(err => reject(err));
+  })
+}
 
-module.exports.updateUserPreferences = (adminTitle, adminDescription, userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit) => { 
+module.exports.createUserSubPrefs = (userId, userPreferenceId, adminPreferenceId, subredditId) => {
+  return new Promise((resolve, reject) => {
+    let join = new models.Users_subreddits_prefs({
+      user_id: userId,
+      user_preference_id: userPreferenceId,
+      admin_preference_id: adminPreferenceId,
+      subreddit_id: subredditId,
+    })
+    .save()
+    .then((createdJoin) => resolve(createdJoin))
+    .catch(err => reject(err));
+  })
+}
+
+module.exports.updateUserPreferences = (adminTitle, userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit) => {
+  console.log(upvoteThreshold);
+
+module.exports.updateUserPreferences = (adminTitle, adminDescription, userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit) => {
   // console.log('INSIDE CONTROLLER!! ', adminTitle, adminDescription,  userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit);
   if(adminTitle) {
     return new Promise((resolve, reject) => {
@@ -71,14 +100,14 @@ module.exports.updateUserPreferences = (adminTitle, adminDescription, userPrefer
         id: userPreferenceId,
         upvote_threshold: upvoteThreshold,
         location_threshold: locationThreshold,
-        notification_limit: notificationLimit
+        notification_limit: notificationLimit,
       })
       .save()
-      .then(() => { 
+      .then(() => {
         let subredditPref = new models.Subreddits({
           id: userPreferenceId,
           title: adminTitle,
-          description: adminDescription 
+          description: adminDescription
         })
       .save();
       })
@@ -110,9 +139,20 @@ module.exports.updateUserPreferences = (adminTitle, adminDescription, userPrefer
   }
 };
 
+module.exports.getLocalMessages = () => {
+  return new Promise((resolve, reject) => {
+    models.Messages.fetchAll()
+    .then(data => {
+      resolve(data);
+    })
+    .catch(err=> {
+      reject(err);
+    })
+  })
+}
 
 
-module.exports.getMessagesBySubredditId = subid => { 
+module.exports.getMessagesBySubredditId = subid => {
   return new Promise((resolve, reject) => {
     models.Messages.where('subreddit_id', subid)
     .fetchAll()
@@ -125,7 +165,7 @@ module.exports.getMessagesBySubredditId = subid => {
   });
 };
 
-module.exports.getMessagesByPostId = postid => { 
+module.exports.getMessagesByPostId = postid => {
   return new Promise((resolve, reject) => {
     models.Messages.where('post_id', postid)
     .fetchAll()
@@ -140,7 +180,7 @@ module.exports.getMessagesByPostId = postid => {
 };
 
 
-module.exports.createPost = (userid, title, text, geotag, subid) => { 
+module.exports.createPost = (userid, title, text, geotag, subid) => {
   return new Promise((resolve, reject) => {
     let message = new models.Messages({
       title: title,
@@ -162,7 +202,7 @@ module.exports.createPost = (userid, title, text, geotag, subid) => {
   });
 };
 
-module.exports.createComment = (userid, title, text, geotag, postid) => { 
+module.exports.createComment = (userid, title, text, geotag, postid) => {
   return new Promise((resolve, reject) => {
     let message = new models.Messages({
       title: '',
@@ -184,7 +224,7 @@ module.exports.createComment = (userid, title, text, geotag, postid) => {
   });
 };
 
-module.exports.getNotificationsByUserId = userid => { 
+module.exports.getNotificationsByUserId = userid => {
   return new Promise((resolve, reject) => {
     models.Notifications.where('user_id', userid)
     .fetch({withRelated: 'messages'})
@@ -196,8 +236,3 @@ module.exports.getNotificationsByUserId = userid => {
     });
   });
 };
-
-
-
-
-

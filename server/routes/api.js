@@ -29,6 +29,21 @@ router.route('/user')
     .send({ data: 'Posted!' });
   });
 
+router.route('/map')
+  .post((req, res) => {
+    controllers.createMap(req.body.mapTitle, req.body.mapDescription, req.body.upvoteThreshold, req.body.distanceThreshold)
+    .then((map) => {
+      controllers.updateUserPreferences(map.attributes.title, undefined, map.attributes.upvote_threshold, map.attributes.location_threshold, 1000)
+      .then((adminPrefs) => {
+        controllers.updateUserPreferences(undefined, undefined, map.attributes.upvote_threshold, map.attributes.location_threshold, 1000)
+        .then((userPrefs) => {
+          console.log(req.body);
+          controllers.createUserSubPrefs(req.body.userId, userPrefs.attributes.id, adminPrefs.attributes.id, map.attributes.id)
+          .then((join) => console.log(JSON.stringify(join, null, 2)))
+        })
+      })
+    })
+  })
 
 router.route('/settings')
   .get((req, res) => {
@@ -64,8 +79,8 @@ router.route('/messages')
       })
       .catch((err)=>{
         console.log(err);
-      });        
-    } else {
+      });
+    } else if(req.query.subredditId){
       controllers.getMessagesBySubredditId(req.query.subredditId)
       .then((data)=>{
         res.status(200)
@@ -73,7 +88,16 @@ router.route('/messages')
       })
       .catch((err)=>{
         console.log(err);
-      });      
+      });
+    } else {
+      controllers.getLocalMessages()
+      .then((data)=> {
+        res.status(200)
+        .send(data);
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
     }
   })
   .post((req, res) => {
@@ -94,18 +118,16 @@ router.route('/messages')
         })
         .catch((err) => {
           console.log(err);
-        });         
+        });
       });
      }
    });
-
 
 router.route('/notifications')
   .get((req, res) => {
     //this will load all the notifications based on a user id
     res.status(200).send('this is notifications!');
   });
-
 
 router.route('/snooze')
   .post((req, res) => {

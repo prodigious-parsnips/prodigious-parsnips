@@ -75,7 +75,7 @@ exports.down = function (knex, Promise) {
     knex.schema.dropTable('Notifications'),
     knex.schema.dropTable('Message'),
     knex.schema.dropTable('Admin_Preferences'),
-    knex.schema.dropTable('Subreddits'),    
+    knex.schema.dropTable('Subreddits'),
     knex.schema.dropTable('Users')
   ]);
 };
