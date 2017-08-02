@@ -63,8 +63,8 @@ module.exports.getDataByUserId = userid => {
     
 
 
-module.exports.updateUserPreferences = (adminTitle, userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit) => { 
-  // console.log('INSIDE CONTROLLER!! ', adminTitle, userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit);
+module.exports.updateUserPreferences = (adminTitle, adminDescription, userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit) => { 
+  // console.log('INSIDE CONTROLLER!! ', adminTitle, adminDescription,  userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit);
   if(adminTitle) {
     return new Promise((resolve, reject) => {
       let adminPreference = new models.Admin_preferences({
@@ -74,6 +74,14 @@ module.exports.updateUserPreferences = (adminTitle, userPreferenceId, upvoteThre
         notification_limit: notificationLimit
       })
       .save()
+      .then(() => { 
+        let subredditPref = new models.Subreddits({
+          id: userPreferenceId,
+          title: adminTitle,
+          description: adminDescription 
+        })
+      .save();
+      })
       .then((createdUserPref)=> {
         resolve(createdUserPref);
       })
