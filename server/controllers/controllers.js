@@ -117,9 +117,12 @@ module.exports.getMessagesBySubredditId = subid => {
 
 module.exports.getMessagesByPostId = postid => { 
   return new Promise((resolve, reject) => {
-    models.Messages.where('post_id', postid)
+    models.Messages.where('subreddit_id', subid)
+    //the below was left over from a merge conflict, not sure which one is right!
+    // models.Messages.where('post_id', postid)
     .fetchAll()
     .then(data => {
+      console.log('data from db call', data);
       resolve(data);
     })
     .catch(err => {
