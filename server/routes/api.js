@@ -25,8 +25,6 @@ router.route('/user')
     });
   })
   .post((req, res) => {
-    //this would create a new user
-    console.log('this is user');
     res.status(201)
     .send({ data: 'Posted!' });
   });
@@ -52,6 +50,7 @@ router.route('/settings')
     .catch((err)=>{
       console.log(err);
     });
+    res.status(200).send('this is settings!');
   });
 
 
@@ -83,11 +82,11 @@ router.route('/messages')
   });
 
 
-// router.route('/notifications')
-//   .get((req, res) => {
-//     //this will load all the notifications based on a user id
-//     res.status(200).send('this is notifications!');
-//   });
+router.route('/notifications')
+  .get((req, res) => {
+    //this will load all the notifications based on a user id
+    res.status(200).send('this is notifications!');
+  });
 
 
 router.route('/snooze')
@@ -106,7 +105,6 @@ router.route('/snooze')
       });
     }
   });
-
 
 
 module.exports = router;
