@@ -42,6 +42,7 @@ let createUserPreferences = (upvote_threshold, location_threshold, notification_
 
 };
 
+
 let createAdminPreferences = (upvote_threshold, location_threshold, notification_limit) => {
   new models.Admin_preferences({
     upvote_threshold: upvote_threshold,
@@ -80,7 +81,6 @@ exports.seed = (knex, Promise) => {
   .then(()=> {
     return knex('Users_Subreddits_Prefs').del();
   })  
-
   .then(()=> {
     return knex('User_Preferences').del();
   })
@@ -96,7 +96,7 @@ exports.seed = (knex, Promise) => {
 
   .then(() => {
     let records = [];
-  
+
     createUsers();
     createSubreddits('Animal Lovers', 'a place for animal lovers to go', 5, 6);
     createUserPreferences(10, 3, 2);
@@ -134,10 +134,6 @@ exports.seed = (knex, Promise) => {
     createAdminPreferences(7, 11, 4);
     createMessage('milfred?', 'talking with joe','post', null, 'x445 y555', 5, 3, 5);
     Users_Subreddits_Prefs(5, 5, null, 1 );  
-
-
-
-
 
     createUsers();
     createSubreddits('movies', 'bagels in the am', 5, 6);
@@ -227,13 +223,11 @@ exports.seed = (knex, Promise) => {
    createNotifications();
 
 
-
    Users_Subreddits_Prefs(1, 10, null, 3 );                   
    Users_Subreddits_Prefs(2, 9, null, 3 );                   
    Users_Subreddits_Prefs(3, 8, null, 3 );                   
    Users_Subreddits_Prefs(4, 7, null, 3 ); 
    Users_Subreddits_Prefs(5, 6, null, 3 );                   
-                   
 
 
   }).catch((err) => {

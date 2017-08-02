@@ -51,7 +51,7 @@ module.exports.getPreferencesByUserId = userid => {
 module.exports.getDataByUserId = userid => { 
   return new Promise((resolve, reject) => {
     models.Users.where('id', userid)
-    .fetch({withRelated: ['subreddits', 'notifications', 'admin_preferences', 'user_preferences']})
+    .fetch({withRelated: ['subreddits', 'notifications', 'admin_preferences', 'user_preferences', 'users_subreddits_prefs']})
     .then(data => {
         resolve(data);
      })
@@ -111,6 +111,7 @@ module.exports.updateUserPreferences = (adminTitle, adminDescription, userPrefer
 };
 
 
+
 module.exports.getMessagesBySubredditId = subid => { 
   return new Promise((resolve, reject) => {
     models.Messages.where('subreddit_id', subid)
@@ -126,9 +127,7 @@ module.exports.getMessagesBySubredditId = subid => {
 
 module.exports.getMessagesByPostId = postid => { 
   return new Promise((resolve, reject) => {
-    models.Messages.where('subreddit_id', subid)
-    //the below was left over from a merge conflict, not sure which one is right!
-    // models.Messages.where('post_id', postid)
+    models.Messages.where('post_id', postid)
     .fetchAll()
     .then(data => {
       console.log('data from db call', data);

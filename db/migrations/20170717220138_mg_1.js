@@ -12,8 +12,8 @@ exports.up = function(knex, Promise) {
       table.increments('id').unsigned().primary();
       table.string('title').notNullable();
       table.string('description').notNullable();
-      table.integer('upvote_threshold').notNullable();
-      table.integer('location_threshold').notNullable();
+      // table.integer('upvote_threshold').notNullable();
+      // table.integer('location_threshold').notNullable();
     }),
 
     knex.schema.createTableIfNotExists('Admin_Preferences', function(table) {
@@ -64,9 +64,6 @@ exports.up = function(knex, Promise) {
       table.integer('admin_preference_id').references('Admin_Preferences.id');
       table.integer('subreddit_id').references('Subreddits.id');
     }),
-
-
-
   ]);
 };
 
