@@ -39,11 +39,11 @@ router.route('/map')
         .then((userPrefs) => {
           console.log(req.body);
           controllers.createUserSubPrefs(req.body.userId, userPrefs.attributes.id, adminPrefs.attributes.id, map.attributes.id)
-          .then((join) => console.log(JSON.stringify(join, null, 2)))
-        })
-      })
-    })
-  })
+          .then((join) => console.log(JSON.stringify(join, null, 2)));
+        });
+      });
+    });
+  });
 
 router.route('/settings')
   .get((req, res) => {
@@ -71,7 +71,7 @@ router.route('/settings')
 
 router.route('/messages')
   .get((req, res) => {
-    if(req.query.postId){
+    if (req.query.postId) {
       controllers.getMessagesByPostId(req.query.postId)
       .then((data)=>{
         res.status(200)
@@ -80,7 +80,7 @@ router.route('/messages')
       .catch((err)=>{
         console.log(err);
       });
-    } else if(req.query.subredditId){
+    } else if (req.query.subredditId) {
       controllers.getMessagesBySubredditId(req.query.subredditId)
       .then((data)=>{
         res.status(200)
@@ -97,7 +97,7 @@ router.route('/messages')
       })
       .catch((err)=>{
         console.log(err);
-      })
+      });
     }
   })
   .post((req, res) => {

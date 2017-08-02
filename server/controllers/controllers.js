@@ -72,8 +72,8 @@ module.exports.createMap = (mapTitle, mapDescription, upvoteThreshold, distanceT
     .save()
     .then((createdSub) => resolve(createdSub))
     .catch(err => reject(err));
-  })
-}
+  });
+};
 
 module.exports.createUserSubPrefs = (userId, userPreferenceId, adminPreferenceId, subredditId) => {
   return new Promise((resolve, reject) => {
@@ -86,8 +86,8 @@ module.exports.createUserSubPrefs = (userId, userPreferenceId, adminPreferenceId
     .save()
     .then((createdJoin) => resolve(createdJoin))
     .catch(err => reject(err));
-  })
-}
+  });
+};
 
 module.exports.updateUserPreferences = (adminTitle, userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit) => {
   console.log(upvoteThreshold);
@@ -147,9 +147,9 @@ module.exports.getLocalMessages = () => {
     })
     .catch(err=> {
       reject(err);
-    })
-  })
-}
+    });
+  });
+};
 
 
 module.exports.getMessagesBySubredditId = subid => {
