@@ -222,22 +222,11 @@ exports.seed = (knex, Promise) => {
    createNotifications();
    createNotifications();
 
-
-<<<<<<< HEAD
    Users_Subreddits_Prefs(1, 10, null, 3 );
    Users_Subreddits_Prefs(2, 9, null, 3 );
    Users_Subreddits_Prefs(3, 8, null, 3 );
    Users_Subreddits_Prefs(4, 7, null, 3 );
    Users_Subreddits_Prefs(5, 6, null, 3 );
-=======
-
-   Users_Subreddits_Prefs(1, 10, null, 3 );
-   Users_Subreddits_Prefs(2, 9, null, 3 );
-   Users_Subreddits_Prefs(3, 8, null, 3 );
-   Users_Subreddits_Prefs(4, 7, null, 3 );
-   Users_Subreddits_Prefs(5, 6, null, 3 );
-
->>>>>>> Create map endpoint
 
 
   }).catch((err) => {
