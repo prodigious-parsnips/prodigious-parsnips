@@ -61,13 +61,11 @@ module.exports.getDataByUserId = userid => {
   });
 };
 
-module.exports.createMap = (mapTitle, mapDescription, upvoteThreshold, distanceThreshold) => {
+module.exports.createMap = (mapTitle, mapDescription) => {
   return new Promise((resolve, reject) => {
     let subreddit = new models.Subreddits({
       title: mapTitle,
       description: mapDescription,
-      upvote_threshold: upvoteThreshold,
-      location_threshold: distanceThreshold,
     })
     .save()
     .then((createdSub) => resolve(createdSub))
@@ -89,11 +87,8 @@ module.exports.createUserSubPrefs = (userId, userPreferenceId, adminPreferenceId
   });
 };
 
-module.exports.updateUserPreferences = (adminTitle, userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit) => {
-  console.log(upvoteThreshold);
-
 module.exports.updateUserPreferences = (adminTitle, adminDescription, userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit) => {
-  // console.log('INSIDE CONTROLLER!! ', adminTitle, adminDescription,  userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit);
+  console.log('INSIDE CONTROLLER!! ', adminTitle, adminDescription,  userPreferenceId, upvoteThreshold, locationThreshold, notificationLimit);
   if(adminTitle) {
     return new Promise((resolve, reject) => {
       let adminPreference = new models.Admin_preferences({
@@ -103,6 +98,9 @@ module.exports.updateUserPreferences = (adminTitle, adminDescription, userPrefer
         notification_limit: notificationLimit,
       })
       .save()
+      .then((createdUserPref)=> {
+        resolve(createdUserPref);
+      })
       .then(() => {
         let subredditPref = new models.Subreddits({
           id: userPreferenceId,
@@ -110,9 +108,6 @@ module.exports.updateUserPreferences = (adminTitle, adminDescription, userPrefer
           description: adminDescription
         })
       .save();
-      })
-      .then((createdUserPref)=> {
-        resolve(createdUserPref);
       })
       .catch(err => {
         reject(err);
@@ -129,7 +124,7 @@ module.exports.updateUserPreferences = (adminTitle, adminDescription, userPrefer
       })
       .save()
       .then((createdUserPref)=>{
-        // console.log('AFTER SAVING TO DB!! ', JSON.stringify(createdUserPref));
+        console.log('AFTER SAVING TO DB!! ', JSON.stringify(createdUserPref));
         resolve(createdUserPref);
       })
       .catch(err => {

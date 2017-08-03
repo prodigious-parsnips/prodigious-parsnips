@@ -14,8 +14,8 @@ let createSubreddits = (title, description, upvote_threshold, location_threshold
   new models.Subreddits({
     title: faker.random.words(),
     description: faker.random.words(),
-    upvote_threshold: upvote_threshold,
-    location_threshold: location_threshold
+    // upvote_threshold: upvote_threshold,
+    // location_threshold: location_threshold
   }).save();
 };
 
@@ -133,7 +133,7 @@ exports.seed = (knex, Promise) => {
     createUserPreferences(10, 3, 2);
     createAdminPreferences(7, 11, 4);
     createMessage('milfred?', 'talking with joe','post', null, 'x445 y555', 5, 3, 5);
-    Users_Subreddits_Prefs(5, 5, null, 1 );  
+    Users_Subreddits_Prefs(5, 5, null, 1 );
 
     createUsers();
     createSubreddits('movies', 'bagels in the am', 5, 6);
@@ -141,14 +141,14 @@ exports.seed = (knex, Promise) => {
     createAdminPreferences(7, 11, 4);
     createMessage('woah there doggie', 'unbelievable','post', null, 'x445 y555', 5, 4, 6);
     //person is admin
-    Users_Subreddits_Prefs(6, 6, 2, 2 );  
+    Users_Subreddits_Prefs(6, 6, 2, 2 );
 
     createUsers();
     createSubreddits('card games', 'eatin good in the ...', 5, 6);
     createUserPreferences(10, 3, 2);
     createAdminPreferences(7, 11, 4);
     createMessage('janie has a gone', 'get it right','post', null, 'x445 y555', 5, 4, 7);
-    Users_Subreddits_Prefs(7, 7, null, 2 ); 
+    Users_Subreddits_Prefs(7, 7, null, 2 );
 
     createUsers();
     createSubreddits('bowcasters', 'pancakes are nice', 5, 6);
@@ -162,7 +162,7 @@ exports.seed = (knex, Promise) => {
     createUserPreferences(10, 3, 2);
     createAdminPreferences(7, 11, 4);
     createMessage('do not ask', 'the best around','post', null, 'x445 y555', 5, 4, 9);
-    Users_Subreddits_Prefs(9, 9, null, 2 ); 
+    Users_Subreddits_Prefs(9, 9, null, 2 );
 
 
 
@@ -172,14 +172,14 @@ exports.seed = (knex, Promise) => {
     createUserPreferences(10, 3, 2);
     createAdminPreferences(7, 11, 4);
     createMessage('woah there doggie', 'where is the salt?','post', null, 'x445 y555', 5, 2, 6);
-    Users_Subreddits_Prefs(10, 10, null, 3 ); 
+    Users_Subreddits_Prefs(10, 10, null, 3 );
 
     createUsers();
     createSubreddits('killa joe', 'meat is good', 5, 11);
     createUserPreferences(10, 3, 2);
     createAdminPreferences(7, 11, 4);
     createMessage('by by babie', 'this is great billie','post', null, 'x445 y555', 5, 2, 7);
-    Users_Subreddits_Prefs(11, 11, null, 3 ); 
+    Users_Subreddits_Prefs(11, 11, null, 3 );
 
     createUsers();
     createSubreddits('builer bob the builder', 'build apps', 5, 12);
@@ -194,9 +194,9 @@ exports.seed = (knex, Promise) => {
     createUserPreferences(10, 3, 2);
     createAdminPreferences(7, 11, 4);
     createMessage('yella', 'the best around','post', null, 'x445 y555', 5, 4, 9);
-    Users_Subreddits_Prefs(13, 13, null, 3 );                   
+    Users_Subreddits_Prefs(13, 13, null, 3 );
 
-    
+
 
    createMessage('yella', 'the best around','comment', 1, 'x445 y555', 5, 1, 9);
   createMessage('more', 'yeah no','comment', 1, 'x445 y555', 5, 1, 9);
@@ -223,11 +223,21 @@ exports.seed = (knex, Promise) => {
    createNotifications();
 
 
-   Users_Subreddits_Prefs(1, 10, null, 3 );                   
-   Users_Subreddits_Prefs(2, 9, null, 3 );                   
-   Users_Subreddits_Prefs(3, 8, null, 3 );                   
-   Users_Subreddits_Prefs(4, 7, null, 3 ); 
-   Users_Subreddits_Prefs(5, 6, null, 3 );                   
+<<<<<<< HEAD
+   Users_Subreddits_Prefs(1, 10, null, 3 );
+   Users_Subreddits_Prefs(2, 9, null, 3 );
+   Users_Subreddits_Prefs(3, 8, null, 3 );
+   Users_Subreddits_Prefs(4, 7, null, 3 );
+   Users_Subreddits_Prefs(5, 6, null, 3 );
+=======
+
+   Users_Subreddits_Prefs(1, 10, null, 3 );
+   Users_Subreddits_Prefs(2, 9, null, 3 );
+   Users_Subreddits_Prefs(3, 8, null, 3 );
+   Users_Subreddits_Prefs(4, 7, null, 3 );
+   Users_Subreddits_Prefs(5, 6, null, 3 );
+
+>>>>>>> Create map endpoint
 
 
   }).catch((err) => {

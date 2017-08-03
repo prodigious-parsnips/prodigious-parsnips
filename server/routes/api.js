@@ -31,18 +31,26 @@ router.route('/user')
 
 router.route('/map')
   .post((req, res) => {
-    controllers.createMap(req.body.mapTitle, req.body.mapDescription, req.body.upvoteThreshold, req.body.distanceThreshold)
+    console.log(req.body);
+    controllers.createMap(req.body.mapTitle, req.body.mapDescription)
     .then((map) => {
-      controllers.updateUserPreferences(map.attributes.title, undefined, map.attributes.upvote_threshold, map.attributes.location_threshold, 1000)
+      console.log('map', map.attributes);
+      controllers.updateUserPreferences(map.attributes.title, req.body.mapDescription, undefined, req.body.upvoteThreshold, req.body.distanceThreshold, 1000)
       .then((adminPrefs) => {
-        controllers.updateUserPreferences(undefined, undefined, map.attributes.upvote_threshold, map.attributes.location_threshold, 1000)
+        console.log('adminPrefs', adminPrefs);
+        controllers.updateUserPreferences(undefined, undefined, undefined, req.body.upvoteThreshold, req.body.distanceThreshold, 1000)
         .then((userPrefs) => {
-          console.log(req.body);
+          console.log('userPrefs', userPrefs.attributes);
           controllers.createUserSubPrefs(req.body.userId, userPrefs.attributes.id, adminPrefs.attributes.id, map.attributes.id)
-          .then((join) => console.log(JSON.stringify(join, null, 2)));
-        });
-      });
-    });
+          .then((join) => res.status(201).end())
+
+          .catch(err => console.log('join'));
+        })
+        .catch(err => console.log('user'));
+      })
+      .catch(err => console.log('admin'));
+    })
+    .catch(err => console.log('map'));
   });
 
 router.route('/settings')
