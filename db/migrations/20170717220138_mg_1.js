@@ -12,7 +12,7 @@ exports.up = function(knex, Promise) {
       table.increments('id').unsigned().primary();
       table.string('title').notNullable();
       table.string('description').notNullable();
-      // table.integer('upvote_threshold').notNullable();
+      table.string('upvote_threshold').notNullable();
       // table.integer('location_threshold').notNullable();
     }),
 

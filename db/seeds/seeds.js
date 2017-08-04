@@ -107,27 +107,27 @@ exports.seed = (knex, Promise) => {
     createUsers();
 
 
-    createSubreddits('Time Capsule', 'a place for animal lovers to go', 5, 6);
+    createSubreddits('Time Capsule', 'a place for animal lovers to go', 'https://images-na.ssl-images-amazon.com/images/I/51bMR9k82XL._SL256_.jpg', 6);
     createUserPreferences(10, 3, 2);
     createAdminPreferences(7, 11, 4);
     Users_Subreddits_Prefs(1, 1, 1, 1 );
 
-    createSubreddits('SF Breaking News', 'a place for animal lovers to go', 5, 6);
+    createSubreddits('SF Breaking News', 'a place for animal lovers to go', 'https://is1-ssl.mzstatic.com/image/thumb/Purple117/v4/11/80/2d/11802d09-54fa-30ee-b03d-1dac8c22dab1/source/256x256bb.jpg', 6);
     createUserPreferences(10, 3, 2);
     createAdminPreferences(7, 11, 4);
     Users_Subreddits_Prefs(1, 2, 2, 2 );
 
-    createSubreddits('Stray Dog Search', 'a place for animal lovers to go', 5, 6);
+    createSubreddits('Stray Dog Search', 'a place for animal lovers to go', 'https://assets.change.org/photos/1/fo/gg/TkfOGgWdjXevfKo-128x128-noPad.jpg', 6);
     createUserPreferences(10, 3, 2);
     createAdminPreferences(7, 11, 4);
     Users_Subreddits_Prefs(1, 3, 3, 3 );
 
-    createSubreddits('SFEvents', 'a place for animal lovers to go', 5, 6);
+    createSubreddits('SFEvents', 'a place for animal lovers to go', 'https://pbs.twimg.com/profile_images/654950386122407937/oZS9fi4s.jpg', 6);
     createUserPreferences(10, 3, 2);
     createAdminPreferences(7, 11, 4);
     Users_Subreddits_Prefs(1, 4, 4, 4 );
 
-    createSubreddits('GeoCaching', 'a place for animal lovers to go', 5, 6);
+    createSubreddits('GeoCaching', 'a place for animal lovers to go', 'https://s-media-cache-ak0.pinimg.com/736x/bc/79/bf/bc79bf77975cc7e18555a636b56a98e7--geocaching-adhesive.jpg', 6);
     createUserPreferences(10, 3, 2);
     createAdminPreferences(7, 11, 4);
     Users_Subreddits_Prefs(1, 5, 5, 5 );
