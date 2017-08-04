@@ -1,17 +1,14 @@
-# Project Name
+# Scout API Server
 
-The project description
+The backend for a React Native application called Scout. Scout is an application which allows users to get notified of events relevant to their interests based on geolocation. Users can follow those interests by subscribing and participating in Hubs. If there is a Hub update and a user is within range they will be notified of the event! 
 
 ## Team
 
-- teamMember
-- teamMember
-- teamMember
-- teamMember
+Derek Johnson,
+Nick Akey, 
+Ben Bucca,
+Rob St. Lezin,
 
-## Roadmap
-
-View the project roadmap [here](LINK_TO_DOC)
 
 ## Contributing
 
@@ -19,24 +16,52 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 # Table of Contents
 
-1. [Usage](#Usage)
 1. [Requirements](#requirements)
+1. [Documentation](#Documentation)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
     1. [Tasks](#tasks)
 
-## Usage
-
-> Some usage instructions
 
 ## Requirements
 
 - Node 6.9.x
 - Redis 3.2.x
 - Postgresql 9.6.x
-- etc
+- Xcode
 
-## Development
+## Documentation
+
+/user
+Returns the user data associated with user id passed in as query parameters.
+
+/map
+Returns a new Scout and defines admin preferences which become the default preferences for any subscribers.
+It accepts **upvoteThreshold**, **distanceThreshold**, **mapTitle**, **mapDescription**, **userId** on the request body.
+
+/settings
+*GET* - Returns user preferences for user id.
+It accepts an **id** as a query parameter
+
+*POST* - Updates user preferences. 
+It accepts a **adminTitle**, **adminDescription**, **userPreferenceId**, **upvoteThreshold**, **locationThreshold**, **notificationLimit**
+on the request body.
+
+/messages
+*GET* - Returns messages by post id.
+NOTE:
+In order to get posts: send a **subredditId** as a query parameter
+In order to get comments: send a **postId** as a query paramater
+If neither is given then local messages will be given.
+
+*POST* - Add messages.
+In order to add a post: send a **subId** as a query parameter.
+Accepts **userId**, **title**, **text**, **geotag**, **subId**
+
+In order to add a comment: send a **postId** as a query paramater.
+Accepts **userId**, **title**, **text**, **geotag**, **postId**
+
+
 
 ### Installing System Dependencies
 
@@ -44,12 +69,15 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 brew install yarn
 brew install redis
 brew install postgresql
+
+To run the react native simulator:
+react-native run-ios
 ```
+
 
 Yarn is a replacement for npm. It's faster and *guarantees* consistency -- as you deploy your code in various environments, you won't run the risk of slight variations in what gets installed.
 
 ### Install Project Dependencies
-
 ```
 yarn global add grunt-cli knex eslint
 ```
@@ -102,5 +130,6 @@ To run server: `yarn run start`
 To run tests: `yarn run test`
 
 To run your redis server for the session store `redis-server`
+
 
 
