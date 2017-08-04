@@ -14,7 +14,7 @@ let createSubreddits = (title, description, upvote_threshold, location_threshold
   new models.Subreddits({
     title: title,
     description: description,
-    // upvote_threshold: upvote_threshold,
+    upvote_threshold: upvote_threshold,
     // location_threshold: location_threshold
   }).save();
 };
@@ -132,18 +132,23 @@ exports.seed = (knex, Promise) => {
     createAdminPreferences(7, 11, 4);
     Users_Subreddits_Prefs(1, 5, 5, 5 );
 
-
+    //posts
     createMessage('This photo is from 1906! Right after the earthquake', 'Look at this street from 100 years ago!',  'post', null, 'https://www.lebanoninapicture.com/Prv/Images/Pages/Page_112378/tb-lanuitdesmusees-oldcity-livelovesaida-lebane-5-22-2017-2-02-19-am-t.jpg', 8, 1, 2);
-    createMessage('Guys, I was walking home from work - and saw a crazy dude dancing or rapping or something...', 'Warning! Dancing man on street corner!',  'post', null, 'https://media.mutualart.com/Images/2011_10/09/23/232031878/ac26d8c8-c45e-4491-b07d-d964b0f15873_338.Jpeg', 8, 2, 2);
-    createMessage('', 'Stray dog found outside a starbucks?',  'post', null, 'https://s3.amazonaws.com/media.muckrack.com/profile/images/31460/newsterrier.jpeg.256x256_q100_crop-smart.jpg', 8, 2, 2);
-    createMessage('', 'Free Ice Cream at Ben and Jerry’s!',  'post', null, 'https://nwatravelguide.com/wp-content/uploads/2016/05/ice-cream-cones-in-northwest-arkansas.jpg', 8, 2, 2);
-    createMessage('', 'Theres a GEO cache near you!',  'post', null, 'https://pbs.twimg.com/profile_images/718194597805969409/2zo7R9Yz_400x400.jpg', 8, 2, 2);
-    createMessage('', 'Tim and Eric are coming to town this weekend :)',  'post', null, 'https://68.media.tumblr.com/avatar_b57e5da6d6ec_128.png', 8, 2, 2);
-    createMessage('', 'Game of thrones experience comes to SF',  'post', null, 'https://pbs.twimg.com/profile_images/734882436153233408/TcclD_Ja_400x400.jpg', 8, 2, 2);
-    createMessage('', 'This is what Golden Gate Park looked like in 1930..',  'post', null, 'https://s-media-cache-ak0.pinimg.com/236x/31/7f/6a/317f6acef2bf51a4c2ccc3dbdb29c86e--golden-gate-park-pacific-coast.jpg', 8, 2, 2);
-    createMessage('', 'My indie band is playing this weekend!..',  'post', null, 'https://ichef.bbci.co.uk/images/ic/256x256/p024g3bq.jpg', 8, 2, 2);
-    createMessage('', 'I lost my dog in this location... help!',  'post', null, 'https://is4-ssl.mzstatic.com/image/thumb/Purple/v4/f5/58/86/f558862f-19f6-e259-9312-fcca9970a895/source/256x256bb.jpg', 8, 2, 2);
-    createMessage('', 'Do you like pina coladas?',  'post', null, 'https://s-media-cache-ak0.pinimg.com/736x/21/c1/d2/21c1d2bd0ab973cc95935117618ebae2--beer-mugs-emoji.jpg', 8, 2, 2);
+    createMessage('Guys, I was walking home from work - and saw a crazy dude dancing or rapping or something...', 'Warning! Dancing man on street corner!',  'post', null, 'https://media.mutualart.com/Images/2011_10/09/23/232031878/ac26d8c8-c45e-4491-b07d-d964b0f15873_338.Jpeg', 8, 2, 1);
+    createMessage('', 'Stray dog found outside a starbucks?',  'post', null, 'https://s3.amazonaws.com/media.muckrack.com/profile/images/31460/newsterrier.jpeg.256x256_q100_crop-smart.jpg', 8, 3, 3);
+    createMessage('', 'Free Ice Cream at Ben and Jerry’s!',  'post', null, 'https://nwatravelguide.com/wp-content/uploads/2016/05/ice-cream-cones-in-northwest-arkansas.jpg', 8, 2, 4);
+    createMessage('', 'Theres a GEO cache near you!',  'post', null, 'https://pbs.twimg.com/profile_images/718194597805969409/2zo7R9Yz_400x400.jpg', 8, 5, 3);
+    createMessage('', 'Tim and Eric are coming to town this weekend :)',  'post', null, 'https://68.media.tumblr.com/avatar_b57e5da6d6ec_128.png', 8, 2, 5);
+    createMessage('', 'Game of thrones experience comes to SF',  'post', null, 'https://pbs.twimg.com/profile_images/734882436153233408/TcclD_Ja_400x400.jpg', 8, 2, 4);
+    createMessage('', 'This is what Golden Gate Park looked like in 1930..',  'post', null, 'https://s-media-cache-ak0.pinimg.com/236x/31/7f/6a/317f6acef2bf51a4c2ccc3dbdb29c86e--golden-gate-park-pacific-coast.jpg', 8, 1, 1);
+    createMessage('', 'My indie band is playing this weekend!..',  'post', null, 'https://ichef.bbci.co.uk/images/ic/256x256/p024g3bq.jpg', 8, 4, 5);
+    createMessage('', 'I lost my dog in this location... help!',  'post', null, 'https://is4-ssl.mzstatic.com/image/thumb/Purple/v4/f5/58/86/f558862f-19f6-e259-9312-fcca9970a895/source/256x256bb.jpg', 8, 3, 4);
+    createMessage('', 'Do you like pina coladas?',  'post', null, 'https://s-media-cache-ak0.pinimg.com/736x/21/c1/d2/21c1d2bd0ab973cc95935117618ebae2--beer-mugs-emoji.jpg', 8, 2, 3);
+
+    //comments
+    createMessage('wow - this is unbelievable!!', '',  'comment', 2, '', 8, 5, 1);
+    createMessage('this guy is cool! What are you guys talking about??', '',  'comment', 2, '', 8, 1, 4);
+    createMessage('People these days have no respect!', '',  'comment', 2, '', 8, 4, 3);
 
 
 
